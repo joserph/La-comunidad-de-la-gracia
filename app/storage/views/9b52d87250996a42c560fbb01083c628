@@ -1,0 +1,73 @@
+<?php $__env->startSection('title'); ?> Predicas de <?php echo $predicadores->nombre; ?> | Iglesia La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+	<legend><h1>Predicas de <?php echo $predicadores->nombre; ?></h1></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li class="active"><?php echo $predicadores->nombre; ?></li>
+    </ul>
+    <?php if((Auth::check() && (Auth::user()->id_rol == 0)) || (Auth::check() && (Auth::user()->id_rol == 1))): ?>
+    	<blockquote>
+		<dl class="dl-horizontal">
+		  <dt>Nombre:</dt>
+		  <dd><?php echo $predicadores->nombre; ?>.</dd>
+		  <dt>URL:</dt>
+		  <dd><?php echo $predicadores->url; ?>.</dd>
+		</dl>
+		<small><strong>Creado el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($predicadores->created_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $predicadores->id_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		<small><strong>Ultima actualización el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($predicadores->updated_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $predicadores->update_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		</blockquote>
+    <?php endif; ?>
+
+    <?php foreach($predicas as $predica): ?>
+    	<?php if($predica->predicador == $predicadores->id): ?>
+				<div class="col-md-4">
+    			<div class="panel panel-primary cuadro">	
+					<div class="panel-body">
+						<div class="list-group">							
+					        <!--///////////////**************//////////////////////-->
+				            <div class="">
+				              	<h4 class="text-center"><?php echo $predica->title; ?></h4>               						
+					            <p class="text-center text-muted text-uppercase autorpre3">~<?php echo $predicadores->nombre; ?>~</p>		            
+				                <p class="text-center"><em> - <?php echo date("d/m/Y", strtotime($predica->fecha)); ?> -</em></p> 
+			                    <div class="text-center">
+			                      	<a href="<?php echo URL::route('predicas-show', $predica->url); ?>" class="btn btn-info text-center">
+			                      	<span class="glyphicon glyphicon-headphones"></span> 
+			                      	Escuchar Audio</a>
+			                    </div>			                    				                
+				            </div> 
+				        </div>						
+					</div>
+				</div>
+			</div>
+    	<?php endif; ?> 
+    <?php endforeach; ?>
+  	<br>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

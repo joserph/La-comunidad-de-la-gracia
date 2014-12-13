@@ -1,0 +1,29 @@
+<?php $__env->startSection('head'); ?>
+<?php echo HTML::style('dropzone/downloads/css/dropzone.css'); ?>
+
+<?php echo HTML::script('dropzone/downloads/dropzone.js', array('async')); ?>
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+	<h3>Suba imagen</h3>
+	<div class="row">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Dropzone File Upload</h3>
+			</div>
+
+			<?php echo Form::open(array(
+				'url' => 'upload',
+				'file' => true,
+				'class' => 'dropzone',
+				'id' => 'my-dropzone',
+				'method' => 'post',
+				)); ?>
+
+			
+			<?php echo Form::close(); ?>
+
+		</div>
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

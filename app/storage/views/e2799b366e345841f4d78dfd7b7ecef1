@@ -1,0 +1,12 @@
+<?php $__env->startSection('content'); ?>
+
+    <p>
+      <a href="<?php echo route('fechas.create'); ?>" class="btn btn-primary">Crear una nueva fecha</a>
+    </p>
+
+    Fecha: <?php echo $fechas->fecha; ?> <br>
+    Url: <?php echo $fechas->url; ?> <br>
+    Tipo: <?php echo $fechas->tipo; ?> <br>
+  
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

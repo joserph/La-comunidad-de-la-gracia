@@ -1,0 +1,57 @@
+<?php $__env->startSection('title'); ?> Anuncio | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+   	<legend><h3><?php echo $anuncios->nombre; ?></h3></legend>
+   	<ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+        <li><a href="<?php echo route('anuncios.index'); ?>" title="">Lista de Anuncios</a></li>
+        <li class="active"><?php echo $anuncios->nombre; ?></li>
+    </ul>
+    	<blockquote>
+		<dl class="dl-horizontal">
+		  <dt>Nombre:</dt>
+		  <dd><?php echo $anuncios->nombre; ?>.</dd>
+		  <dt>Fecha:</dt>
+		  <dd><?php echo date("d/m/Y", strtotime($anuncios->fecha)); ?>.</dd>
+		  <dt>Hora:</dt>
+		  <dd><?php echo date("H:i:s a", strtotime($anuncios->hora)); ?>.</dd>
+		  <dt>Estatus:</dt>
+		  <dd><?php echo $anuncios->estatus; ?>.</dd>
+		  <dt>Contenido:</dt>
+		  <dd><?php echo $anuncios->content; ?>.</dd>
+		</dl>
+		<small><strong>Creado el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($anuncios->created_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $anuncios->id_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+			</strong>
+		</small>
+		<small><strong>Ultima actualización el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($anuncios->updated_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $anuncios->update_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+			</strong>
+		</small>
+		</blockquote>
+     
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

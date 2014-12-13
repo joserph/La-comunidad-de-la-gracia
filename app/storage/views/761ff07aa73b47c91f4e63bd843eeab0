@@ -1,0 +1,27 @@
+<?php $__env->startSection('content'); ?>
+	
+        
+
+  <h3>Vista previa prueba</h3>
+  
+  <a href="<?php echo Route('prueba.create'); ?>">Crear prueba</a>
+
+  <table class="table table-condensed">
+    <tr>
+        <th>Nombre</th>
+        <th>URL</th>  
+        <th>Acciones</th>
+    </tr>
+    <?php foreach($pruebas as $prueba): ?>
+    <tr>
+        <td><?php echo $prueba->nombre; ?></td>
+        <td><?php echo $prueba->urlp; ?></td>
+        <td>
+            <a href="<?php echo $prueba->urlp; ?>">Ver</a>
+            <a href="<?php echo route('prueba.edit', $prueba->id); ?>">Editar</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+  </table>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

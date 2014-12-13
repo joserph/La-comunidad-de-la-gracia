@@ -1,0 +1,52 @@
+<div>
+	<div class="load_ajax">
+		<?php foreach($comentarios as $comment): ?>
+			<?php if($comment->id_articulo == $predica->id): ?>
+				<p class="text-success lead"><strong>~<?php echo $comment->nombre; ?>~</strong></p>
+				<p><em><?php echo $comment->comentario; ?></em></p>
+				<small>
+				<p class="text-muted">Publicado el 
+					<?php echo date("d/m/Y", strtotime($comment->created_at)); ?>
+
+				</p>
+				</small>
+				<hr>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</div>
+	<div class="errors_form"></div>
+
+    <div style="display: none" class="success_message success"></div>
+</div>
+<?php if(Auth::check()): ?>
+<div class="form">
+              
+    <?php echo Form::open(array('url' => 'comentarios', 'class' => 'register_ajax')); ?>
+
+    
+    <input type="hidden" name="id_user" value="<?php echo Auth::user()->id; ?>">
+    <input type="hidden" name="id_articulo" value="<?php echo $predica->id; ?>" id="articulo">
+    <?php echo Form::label('nombre', 'Nombre:'); ?>
+
+
+    <?php echo Form::text('nombre', Input::old('nombre'), array('class' => 'form-control', 'placeholder' => 'Nombre de usuario')); ?>
+
+    
+    <?php echo Form::label('comentario', 'Comentario:'); ?>
+
+
+    <?php echo Form::textarea('comentario', Input::old('comentario'), array('class' => 'form-control')); ?>
+
+    <br>
+    <?php echo Form::submit('Crear Comentario', array("class" => "btn btn-success", 'id' => 'frm')); ?>
+
+
+    <?php echo Form::close(); ?>
+
+</div>
+<?php else: ?>
+<h3>Para comentar crea una cuenta 
+	<a href="<?php echo URL::route('account-create'); ?>" class="btn btn-success btn-sm">Aquí</a> 
+</h3>
+
+<?php endif; ?>

@@ -1,0 +1,60 @@
+<?php $__env->startSection('content'); ?>
+
+	<legend><h3><?php echo $sliders->titulo; ?></h3></legend>
+	<ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><?php echo HTML::link('menu', 'Configuración de Menú'); ?></li>
+        <li><?php echo HTML::link('slider', 'Lista de sliders'); ?></li>
+        <li class="active"><?php echo $sliders->titulo; ?></li>
+    </ul>
+    <blockquote>
+		<dl class="dl-horizontal">
+		  <dt>titulo:</dt>
+		  <dd><?php echo $sliders->titulo; ?>.</dd>
+		  <dt>ruta:</dt>
+		  <dd><?php echo $sliders->ruta; ?>.</dd>
+		  <dt>content:</dt>
+		  <dd><?php echo $sliders->content; ?>.</dd>
+		  <dt>f_nombre:</dt>
+		  <dd><?php echo $sliders->f_nombre; ?>.</dd>
+	      <dt>f_ruta:</dt>
+	      <dd><?php echo $sliders->f_ruta; ?>.</dd>
+	      <dt>f_exten:</dt>
+	      <dd><?php echo $sliders->f_exten; ?>.</dd>
+	      <dt>file:</dt>
+	      <dd>
+		    <img src="<?php echo 'http://localhost/cdlgracia/Autenticacion/public/'.$sliders->f_ruta; ?>" class="img-responsive img-thumbnail" width="100" alt="<?php echo $sliders->f_name; ?>">
+	      </dd>
+
+		</dl>
+
+		<small><strong>Creado el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($sliders->created_at)); ?>
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $sliders->id_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		<small><strong>Ultima actualización el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($sliders->updated_at)); ?>
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $sliders->update_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		</blockquote>
+  
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

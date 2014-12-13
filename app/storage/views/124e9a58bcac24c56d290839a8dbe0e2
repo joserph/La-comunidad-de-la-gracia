@@ -1,0 +1,6 @@
+<?php $__env->startSection('content'); ?>
+	
+	<p>Hello, <?php echo Auth:: user()->username; ?> - Editor.</p>
+	
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

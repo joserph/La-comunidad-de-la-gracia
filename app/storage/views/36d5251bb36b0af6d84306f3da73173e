@@ -1,0 +1,62 @@
+<?php $__env->startSection('content'); ?>
+
+	<legend><h3><?php echo $carrusels->nombre; ?></h3></legend>
+	<ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><?php echo HTML::link('carrusel', 'Lista de carrusel'); ?></li>
+        <li class="active"><?php echo $carrusels->nombre; ?></li>
+    </ul>
+    <blockquote>
+		<dl class="dl-horizontal">
+		  	<dt>Nombre:</dt>
+			<dd><?php echo $carrusels->nombre; ?>.</dd>
+			<dt>URL:</dt>
+			<dd><?php echo $carrusels->url; ?>.</dd>
+			<dt>Contenido:</dt>
+			<dd><?php echo $carrusels->content; ?>.</dd>
+			<dt>Nombre de file:</dt>
+			<dd><?php echo $carrusels->f_nombre; ?>.</dd>
+		    <dt>Ruta de file:</dt>
+		    <dd><?php echo $carrusels->f_ruta; ?>.</dd>
+		    <dt>Extensión:</dt>
+		    <dd><?php echo $carrusels->f_exten; ?>.</dd>
+		    <dt>File:</dt>
+		    <dd>
+	      	<?php foreach($archivos as $archivo): ?>
+	      	<?php echo $archivo; ?>
+	      	<img src="<?php echo $archivo; ?>" class="img-responsive" width="400" alt="<?php echo $carrusels->f_nombre; ?>">
+	      		
+			<?php endforeach; ?>
+	      	</dd>
+		</dl>
+
+		<small><strong>Creado el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($carrusels->created_at)); ?>
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $carrusels->id_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		<small><strong>Ultima actualización el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($carrusels->updated_at)); ?>
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $carrusels->update_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		</blockquote>
+  		
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

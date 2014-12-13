@@ -1,0 +1,37 @@
+<?php $__env->startSection('title'); ?> Predicas | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+	
+	<h1><a href="<?php echo route('predicas.create'); ?>" class="btn btn-success btn-sm">Crear Predica</a></h1>
+    <legend><h3>Lista de Predicas</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+        <li class="active">Lista de Predicas</li>
+    </ul>
+    <div class="table-responsive">
+	<table class="table table-striped table-hover table-responsive">
+    <tr>
+        <th>Título</th>
+        <th>URL</th>  
+        <th>Comentarios</th>
+        <th>Estatus</th>
+        <th>Acciones</th>
+    </tr>
+    <?php foreach($predicas as $predica): ?>
+    <tr>
+        <td><?php echo $predica->title; ?></td>
+        <td><?php echo $predica->url; ?></td>
+        <td class="text-uppercase"><?php echo $predica->comentario; ?></td>
+        <td class="text-uppercase"><?php echo $predica->estatus; ?></td>
+        <td>
+            <a href="<?php echo URL::route('predicas-show', $predica->url); ?>" class="btn btn-info btn-xs">Ver </a>
+            <a href="<?php echo route('predicas.edit', $predica->id); ?>" class="btn btn-warning btn-xs"> Editar</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </table>
+    </div>
+    <?php echo $predicas->links(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,113 @@
+<?php $__env->startSection('title'); ?> <?php echo $fechas->fecha; ?> | Iglesia La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+   	<?php if($fechas->tipo == "año"): ?>
+   	<legend><h1><span class="text-capitalize"><?php echo $fechas->fecha; ?></span></h1></legend>
+   	<?php else: ?>
+   	<legend><h1>Predicas <span class="text-lowercase"><?php echo $fechas->fecha; ?></span></h1></legend>
+   	<?php endif; ?>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li class="active"><?php echo $fechas->fecha; ?></li>
+    </ul>
+    <?php if((Auth::check() && (Auth::user()->id_rol == 0)) || (Auth::check() && (Auth::user()->id_rol == 1))): ?>
+    	<blockquote>
+		<dl class="dl-horizontal">
+		  <dt>Fecha:</dt>
+		  <dd><?php echo $fechas->fecha; ?>.</dd>
+		  <dt>URL:</dt>
+		  <dd><?php echo $fechas->url; ?>.</dd>
+		  <dt>Tipo:</dt>
+		  <dd><?php echo $fechas->tipo; ?>.</dd>
+		</dl>
+		<small><strong>Creado el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($fechas->created_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $fechas->id_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		<small><strong>Ultima actualización el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($fechas->updated_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $fechas->update_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		</blockquote>
+    <?php endif; ?>
+
+	<?php if($fechas->tipo == "año"): ?>
+	    <?php foreach($predicas as $predica): ?>
+	    	<?php if($predica->anio == $fechas->id): ?>
+	    	<div class="col-md-4">
+    			<div class="panel panel-primary cuadro">	
+					<div class="panel-body">
+						<div class="list-group">							
+					        <!--///////////////**************//////////////////////-->
+				            <div class="">
+				              	<h4 class="text-center"><?php echo $predica->title; ?></h4>
+				              	<?php foreach($predicadores as $predicador): ?>
+               						<?php if($predicador->id == $predica->predicador): ?>
+							            <p class="text-center text-muted text-uppercase autorpre3">~<?php echo $predicador->nombre; ?>~</p>			            
+						                <p class="text-center"><em> - <?php echo date("d/m/Y", strtotime($predica->fecha)); ?> -</em></p> 
+					                    <div class="text-center">
+					                      	<a href="<?php echo URL::route('predicas-show', $predica->url); ?>" class="btn btn-info text-center">
+					                      	<span class="glyphicon glyphicon-headphones"></span> 
+					                      	Escuchar Audio</a>
+					                    </div>
+			                    	<?php endif; ?>
+            					<?php endforeach; ?>				                
+				            </div> 
+				        </div>						
+					</div>
+				</div>
+			</div>
+	    	<?php endif; ?> 
+	    <?php endforeach; ?>
+	<?php elseif($fechas->tipo == "mes"): ?>
+		<?php foreach($predicas as $predica): ?>
+	    	<?php if($predica->mes == $fechas->id): ?>
+				<div class="col-md-4">
+    			<div class="panel panel-primary cuadro">	
+					<div class="panel-body">
+						<div class="list-group">							
+					        <!--///////////////**************//////////////////////-->
+				            <div class="">
+				              	<h4 class="text-center"><?php echo $predica->title; ?></h4>
+				              	<?php foreach($predicadores as $predicador): ?>
+               						<?php if($predicador->id == $predica->predicador): ?>
+							            <p class="text-center text-muted text-uppercase autorpre3">~<?php echo $predicador->nombre; ?>~</p>			            
+						                <p class="text-center"><em> - <?php echo date("d/m/Y", strtotime($predica->fecha)); ?> -</em></p> 
+					                    <div class="text-center">
+					                      	<a href="<?php echo URL::route('predicas-show', $predica->url); ?>" class="btn btn-info text-center">
+					                      	<span class="glyphicon glyphicon-headphones"></span> 
+					                      	Escuchar Audio</a>
+					                    </div>
+			                    	<?php endif; ?>
+            					<?php endforeach; ?>				                
+				            </div> 
+				        </div>						
+					</div>
+				</div>
+			</div>
+	    	<?php endif; ?> 
+	    <?php endforeach; ?>
+	<?php endif; ?>
+  	<br>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

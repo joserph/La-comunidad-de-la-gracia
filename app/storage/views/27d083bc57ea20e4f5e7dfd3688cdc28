@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es_ES">
+<head>
+	<meta charset="UTF-8">
+	<title>Authentication system</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<?php echo HTML::style('//fonts.googleapis.com/css?family=Lato:400,700,400italic'); ?>
+
+	<?php echo HTML::style('assets/css/reset.css'); ?>
+
+	<?php echo HTML::style('assets/css/bootstrap.css'); ?>
+
+	<?php echo HTML::style('assets/css/flatly-bootstrap.css', array('media' => 'screen')); ?>	
+    <!--Javascript-->
+	<?php echo HTML::script('assets/js/jquery.min.js'); ?>
+
+	<?php echo HTML::script('assets/js/bootstrap.min.js'); ?>
+
+	<?php echo HTML::script('assets/js/menuresponsive.js'); ?>
+
+	<!--Fin Javascript-->
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<header>		
+			<?php echo $__env->make('master.navegation1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		</header><!-- /header -->
+		<div class="row">
+			
+			<?php if(Session::has('global')): ?>
+		  		<div class="alert alert-warning">
+			      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<p><?php echo Session::get('global'); ?></p>
+			    </div>
+		    <?php endif; ?>
+		    <?php if(Session::has('create')): ?>
+			    <div class="alert alert-dismissable alert-info">
+				  	<button type="button" class="close" data-dismiss="alert">×</button>
+				  	<p><strong>Bien hecho! </strong> <?php echo Session::get('create'); ?></p>
+				</div>	
+		    <?php endif; ?>
+		    <?php if(Session::has('editar')): ?>
+		    	<div class="alert alert-dismissable alert-success">
+				  	<button type="button" class="close" data-dismiss="alert">×</button>
+				  	<p><strong>Bien hecho! </strong> <?php echo Session::get('editar'); ?></p>
+				</div>			  		
+		    <?php endif; ?>
+		    <?php if(Session::has('delete')): ?>
+		    	<div class="alert alert-dismissable alert-danger">
+				  	<button type="button" class="close" data-dismiss="alert">×</button>
+				  	<p><?php echo Session::get('delete'); ?></p>
+				</div>
+		    <?php endif; ?>
+			<?php echo $__env->yieldContent('content'); ?>
+			
+		</div>
+		
+	</div><!--End Container-->
+	
+</body>
+</html>

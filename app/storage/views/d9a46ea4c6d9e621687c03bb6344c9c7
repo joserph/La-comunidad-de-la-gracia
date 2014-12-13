@@ -1,0 +1,34 @@
+<div class="errors_form"></div>
+
+<div style="display: none" class="success_message text-success lead success"><strong></strong></div>
+<div class="form">
+              
+    <?php echo Form::open(array('url' => 'oracion', 'class' => 'peticion_ajax')); ?>
+
+    
+    <?php echo Form::label('nombre', 'Nombre:'); ?>
+
+    <?php echo Form::text('nombre', Input::old('nombre'), array('class' => 'form-control', 'placeholder' => 'Tu Nombre')); ?>
+
+    <?php echo Form::label('email', 'Email:'); ?>
+
+    <?php echo Form::text('email', Input::old('email'), array('class' => 'form-control', 'placeholder' => 'Tu Email')); ?>
+
+    <?php echo Form::label('peticion', 'Petición:'); ?>
+
+    <?php echo Form::textarea('peticion', Input::old('peticion'), array('class' => 'form-control')); ?>
+
+    <?php echo Form::label('Captcha', 'Captcha:'); ?> <br> 
+    <?php echo Form::image(Captcha::img(), 'Captcha image'); ?>
+
+    <?php echo Form::text('captcha', null, array('class' => 'form-control', 'placeholder' => 'Ingresa el captcha')); ?>
+
+    <br>
+    <?php echo Form::submit('Crear Petición', array("class" => "btn btn-success", 'id' => 'oracion')); ?>
+
+
+    <?php echo Form::close(); ?>
+
+    <div style='margin: 10px 0px 0px 300px' class='before'></div> 
+</div>
+

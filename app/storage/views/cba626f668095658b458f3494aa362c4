@@ -1,0 +1,207 @@
+<?php $__env->startSection('title'); ?> Cron Jobs | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+	
+	<h1><a href="<?php echo route('cronjobs.create'); ?>" class="btn btn-success btn-sm">Crear Cron Job</a></h1>
+
+    <legend><h3>Lista de Cron Jobs</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+        <li class="active">Lista de Cron Jobs</li>
+    </ul>
+    
+    <?php foreach($cronjobs as $cronjob): ?>
+        <?php if($cronjob->dia == 'Lunes'): ?>
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Lunes</h3>
+                </div>
+                <div class="panel-body">
+                    <?php foreach($biblia as $verso): ?>
+                        <?php if($verso->id == $cronjob->id_tarea): ?>
+                            <blockquote class="pull-right">
+                                <p><?php echo $verso->content; ?></p>
+                                <small>
+                                    <cite title="Source Title">
+                                        <strong>
+                                            <?php echo $verso->libro; ?> <?php echo $verso->capitulo; ?>:<?php echo $verso->versiculo; ?>
+
+                                        </strong>                                        
+                                    </cite>
+                                </small>                                
+                            </blockquote>                            
+                        <?php endif; ?>
+                    <?php endforeach; ?>                    
+                </div>
+                <blockquote>
+                    <a href="<?php echo route('cronjobs.show', $cronjob->id); ?>" class="btn btn-info">Ver</a>
+                    <a href="<?php echo route('cronjobs.edit', $cronjob->id); ?>" class="btn btn-warning">Editar</a>
+                </blockquote>
+            </div>
+        <?php elseif($cronjob->dia == 'Martes'): ?>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Martes</h3>
+                </div>
+                <div class="panel-body">
+                    <?php foreach($biblia as $verso): ?>
+                        <?php if($verso->id == $cronjob->id_tarea): ?>
+                            <blockquote class="pull-right">
+                                <p><?php echo $verso->content; ?></p>
+                                <small>
+                                    <cite title="Source Title">
+                                        <strong>
+                                            <?php echo $verso->libro; ?> <?php echo $verso->capitulo; ?>:<?php echo $verso->versiculo; ?>
+
+                                        </strong>
+                                    </cite>
+                                </small>
+                            </blockquote>                                                       
+                        <?php endif; ?>
+                    <?php endforeach; ?>                    
+                </div>
+                <blockquote>
+                    <a href="<?php echo route('cronjobs.show', $cronjob->id); ?>" class="btn btn-info">Ver</a>
+                    <a href="<?php echo route('cronjobs.edit', $cronjob->id); ?>" class="btn btn-warning">Editar</a>
+                </blockquote> 
+            </div>
+        <?php elseif($cronjob->dia == 'Miercoles'): ?>
+        <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Miercoles</h3>
+                </div>
+                <div class="panel-body">
+                    <?php foreach($biblia as $verso): ?>
+                        <?php if($verso->id == $cronjob->id_tarea): ?>
+                            <blockquote class="pull-right">
+                                <p><?php echo $verso->content; ?></p>
+                                <small>
+                                    <cite title="Source Title">
+                                        <strong>
+                                            <?php echo $verso->libro; ?> <?php echo $verso->capitulo; ?>:<?php echo $verso->versiculo; ?>
+
+                                        </strong>
+                                    </cite>
+                                </small>
+                            </blockquote>                            
+                        <?php endif; ?>
+                    <?php endforeach; ?>                    
+                </div>
+                <blockquote>
+                    <a href="<?php echo route('cronjobs.show', $cronjob->id); ?>" class="btn btn-info">Ver</a>
+                    <a href="<?php echo route('cronjobs.edit', $cronjob->id); ?>" class="btn btn-warning">Editar</a>
+                </blockquote>
+            </div>
+        <?php elseif($cronjob->dia == 'Jueves'): ?>
+        <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Jueves</h3>
+                </div>
+                <div class="panel-body">
+                    <?php foreach($biblia as $verso): ?>
+                        <?php if($verso->id == $cronjob->id_tarea): ?>
+                            <blockquote class="pull-right">
+                                <p><?php echo $verso->content; ?></p>
+                                <small>
+                                    <cite title="Source Title">
+                                        <strong>
+                                            <?php echo $verso->libro; ?> <?php echo $verso->capitulo; ?>:<?php echo $verso->versiculo; ?>
+
+                                        </strong>
+                                    </cite>
+                                </small>
+                            </blockquote>                            
+                        <?php endif; ?>
+                    <?php endforeach; ?>                    
+                </div>
+                <blockquote>
+                    <a href="<?php echo route('cronjobs.show', $cronjob->id); ?>" class="btn btn-info">Ver</a>
+                    <a href="<?php echo route('cronjobs.edit', $cronjob->id); ?>" class="btn btn-warning">Editar</a>
+                </blockquote>
+            </div>
+        <?php elseif($cronjob->dia == 'Viernes'): ?>
+        <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Viernes</h3>
+                </div>
+                <div class="panel-body">
+                    <?php foreach($biblia as $verso): ?>
+                        <?php if($verso->id == $cronjob->id_tarea): ?>
+                            <blockquote class="pull-right">
+                                <p><?php echo $verso->content; ?></p>
+                                <small>
+                                    <cite title="Source Title">
+                                        <strong>
+                                            <?php echo $verso->libro; ?> <?php echo $verso->capitulo; ?>:<?php echo $verso->versiculo; ?>
+
+                                        </strong>
+                                    </cite>
+                                </small>
+                            </blockquote>                            
+                        <?php endif; ?>
+                    <?php endforeach; ?>                    
+                </div>
+                <blockquote>
+                    <a href="<?php echo route('cronjobs.show', $cronjob->id); ?>" class="btn btn-info">Ver</a>
+                    <a href="<?php echo route('cronjobs.edit', $cronjob->id); ?>" class="btn btn-warning">Editar</a>
+                </blockquote>
+            </div>
+        <?php elseif($cronjob->dia == 'Sabado'): ?>
+        <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Sabado</h3>
+                </div>
+                <div class="panel-body">
+                    <?php foreach($biblia as $verso): ?>
+                        <?php if($verso->id == $cronjob->id_tarea): ?>
+                            <blockquote class="pull-right">
+                                <p><?php echo $verso->content; ?></p>
+                                <small>
+                                    <cite title="Source Title">
+                                        <strong>
+                                            <?php echo $verso->libro; ?> <?php echo $verso->capitulo; ?>:<?php echo $verso->versiculo; ?>
+
+                                        </strong>
+                                    </cite>
+                                </small>
+                            </blockquote>                            
+                        <?php endif; ?>
+                    <?php endforeach; ?>                    
+                </div>
+                <blockquote>
+                    <a href="<?php echo route('cronjobs.show', $cronjob->id); ?>" class="btn btn-info">Ver</a>
+                    <a href="<?php echo route('cronjobs.edit', $cronjob->id); ?>" class="btn btn-warning">Editar</a>
+                </blockquote>
+            </div>
+        <?php elseif($cronjob->dia == 'Domingo'): ?>
+        <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Domingo</h3>
+                </div>
+                <div class="panel-body">
+                    <?php foreach($biblia as $verso): ?>
+                        <?php if($verso->id == $cronjob->id_tarea): ?>
+                            <blockquote class="pull-right">
+                                <p><?php echo $verso->content; ?></p>
+                                <small>
+                                    <cite title="Source Title">
+                                        <strong>
+                                            <?php echo $verso->libro; ?> <?php echo $verso->capitulo; ?>:<?php echo $verso->versiculo; ?>
+
+                                        </strong>
+                                    </cite>
+                                </small>
+                            </blockquote>                            
+                        <?php endif; ?>
+                    <?php endforeach; ?>                    
+                </div>
+                <blockquote>
+                    <a href="<?php echo route('cronjobs.show', $cronjob->id); ?>" class="btn btn-info">Ver</a>
+                    <a href="<?php echo route('cronjobs.edit', $cronjob->id); ?>" class="btn btn-warning">Editar</a>
+                </blockquote>
+            </div>
+        <?php endif; ?>
+
+    <?php endforeach; ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

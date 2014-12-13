@@ -1,0 +1,27 @@
+<?php $__env->startSection('content'); ?>
+	<?php if(Auth::check() && (Auth::user()->id_rol == 2)): ?>
+		<p>Hello, <?php echo Auth:: user()->username; ?> y rol <?php echo Auth:: user()->id_rol; ?> - User</p>
+	<?php elseif(Auth::check() && (Auth::user()->id_rol == 1)): ?>
+		<p>Hello, <?php echo Auth:: user()->username; ?> y rol <?php echo Auth:: user()->id_rol; ?> - Editor</p>
+	<?php elseif(Auth::check() && (Auth::user()->id_rol == 0)): ?>
+		<p>Hello, <?php echo Auth:: user()->username; ?> y rol <?php echo Auth:: user()->id_rol; ?> - Admin</p>
+	<?php else: ?>
+		<p>You are not signed in.</p>
+	<?php endif; ?>
+	
+	<?php foreach($predicas as $predica): ?>
+		
+		<h1><a href="/cdlgracia/Autenticacion/public/predicas/<?php echo $predica->url; ?>"><?php echo $predica->title; ?>.</a></h1>
+		<p><?php echo $predica->content; ?></p>
+		<p><?php echo $predica->created_at; ?></p>
+		<?php if($predica->tipo != 'post'): ?>
+		<p><a href="<?php echo route('predicas.edit', $predica->id); ?>">Editar</a></p>
+		<?php else: ?>
+		<p><a href="<?php echo route('post.edit', $predica->id); ?>">Editar</a></p>
+		<?php endif; ?>
+		<hr>
+
+	<?php endforeach; ?>
+		
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

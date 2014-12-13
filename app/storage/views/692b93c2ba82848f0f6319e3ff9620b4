@@ -1,0 +1,138 @@
+<?php
+  if ($post->exists):
+      $form_data = array('route' => array('post.update', $post->id), 'method' => 'PATCH', 'files' => true);
+      $action    = 'Editar';
+  else:
+      $form_data = array('route' => 'post.store', 'method' => 'POST', 'files' => true);
+      $action    = 'Crear';        
+  endif;
+?>
+<?php $__env->startSection('title'); ?> <?php echo $action; ?> artículo | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+<script>
+  $(document).ready(function(){
+    
+    $("#title1").blur(function(){
+      url = $('#title1').val();
+      guion = url.replace(/ /g, "-");
+      enie = guion.replace(/ñ/g, "n");
+      a = enie.replace(/á/g, "a");
+      aa = a.replace(/Á/g, "a");
+      e = aa.replace(/é/g, "e");
+      ee = e.replace(/É/g, "e");
+      i = ee.replace(/í/g, "i");
+      ii = i.replace(/Í/g, "i");
+      o = ii.replace(/ó/g, "o");
+      oo = o.replace(/Ó/g, "o");
+      u = oo.replace(/ú/g, "u");
+      uu = u.replace(/Ú/g, "u");
+      ba = "/";
+      barra = uu.replace(ba, "-");
+      barra2 = barra.replace(ba, "-").toLowerCase();
+
+      alert("Url automatica.");
+     $('#url2').val(barra2);
+    });
+  });
+</script>
+<script>
+  function desactivar()
+  {
+    if($("#casilla3:checked").val()==1) {
+        $("#url2").attr('readonly', 'readonly');
+  }
+    else 
+    {
+      $("#url2").removeAttr("readonly");
+    }
+  }
+</script>
+
+	<?php echo Form::model($post, $form_data, array('role' => 'form', 'files' => true)); ?>
+
+    <legend><h3 class="form-signin-heading"><?php echo $action; ?> Artículo</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+        <li class="active"><?php echo $action; ?> Artículo</li>
+    </ul>
+  	<?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php if($action == "Crear"): ?>
+      <input type="hidden" name="id_user" value="<?php echo Auth:: user()->id; ?>">
+      <input type="hidden" name="update_user" value="<?php echo Auth:: user()->id; ?>">
+      <input type="hidden" name="tipo" value="post">
+    <?php else: ?> 
+      <input type="hidden" name="update_user" value="<?php echo Auth:: user()->id; ?>">
+    <?php endif; ?>
+
+    <?php echo Form::label('title', 'Title:'); ?> 
+    <?php echo Form::text('title', null, array('class' => 'form-control', 'id' => 'title1', 'placeholder' =>'Título del artículo', 'autofocus'=>'autofocus')); ?>
+
+    <?php echo Form::label('url', 'Url:'); ?> 
+    <?php echo Form::text('url', null, array('class' => 'form-control', 'id' => 'url2', 'placeholder' =>'Ruta del artículo', 'readonly')); ?>
+
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" id="casilla3" value="1" onclick="desactivar()" checked="checked"> Colocar ruta manualmente 
+      </label>
+    </div>
+    <?php echo Form::label('content', 'Content:'); ?> 
+    <?php echo Form::textarea('content', null, array('class' => 'form-control', 'id' => 'edit')); ?>
+
+    <script>
+        $(function() {
+            $('#edit').editable({inlineMode: false})
+        });
+    </script>
+    <?php echo Form::label('file', 'File:'); ?> 
+    <?php echo Form::file('file'); ?>
+
+    <?php echo Form::label('estatus', 'Estatus:'); ?> 
+    <?php echo Form::select('estatus', array(
+      '' => 'Select',
+      'publicado' => 'Publicado',
+      'menu' => 'Solo menú'
+      ), null, ['class' => 'form-control']); ?>
+
+    <?php echo Form::label('comentario', 'Habilitar comentarios:'); ?> 
+    <div class="radio">
+      <label>
+        <input type="radio" name="comentario" id="optionsRadios1" value="no" checked>
+        No
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="comentario" id="optionsRadios2" value="si">
+        Si
+      </label>
+    </div>
+    <br>
+    <?php if($action == 'Crear'): ?>      
+      <?php echo Form::button($action.' artículo', array('type' => 'submit', 'class' => 'btn btn-success')); ?>
+
+    <?php else: ?>
+      <?php echo Form::button($action.' artículo', array('type' => 'submit', 'class' => 'btn btn-warning')); ?>
+
+    <?php endif; ?>
+   
+  <?php echo Form::close(); ?>
+
+  <p>
+    <?php if($action == 'Editar'): ?>  
+      <?php echo Form::model($post, array('route' => array('post.destroy', $post->id), 'method' => 'DELETE', 'role' => 'form')); ?>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+              <?php echo Form::submit('Eliminar artículo', array('class' => 'btn btn-danger')); ?>
+
+          </div>
+        </div>
+      <?php echo Form::close(); ?>
+
+    <?php endif; ?>
+  </p>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

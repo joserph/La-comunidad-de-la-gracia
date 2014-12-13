@@ -1,0 +1,49 @@
+<?php $__env->startSection('title'); ?> Cron Jobs | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+   
+   	<legend><h3>Cron Jobs</h3></legend>
+    
+    	<blockquote>
+		<dl class="dl-horizontal">
+		  <dt>Tipo:</dt>
+		  <dd><?php echo $cronjobs->tipo; ?>.</dd>
+		  <dt>Día:</dt>
+		  <dd><?php echo $cronjobs->dia; ?>.</dd>
+		  <dt>Tarea:</dt>
+		  <dd><?php echo $cronjobs->id_tarea; ?>.</dd>
+		</dl>
+		<small><strong>Creado el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($cronjobs->created_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $cronjobs->id_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+			</strong>
+		</small>
+		<small><strong>Ultima actualización el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($cronjobs->updated_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $cronjobs->update_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+			</strong>
+		</small>
+		</blockquote>
+     
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

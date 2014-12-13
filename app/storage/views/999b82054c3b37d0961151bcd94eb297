@@ -1,0 +1,31 @@
+<?php $__env->startSection('title'); ?> Petición de oración | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+   
+   	<legend><h3>Petición de Oración</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+        <li><?php echo HTML::link('oracion', 'Peticiones de Oración'); ?></li>
+        <li class="active">Petición de <?php echo $oraciones->nombre; ?></li>
+    </ul>
+    	<blockquote>
+		<dl class="dl-horizontal">
+		  <dt>Nombre:</dt>
+		  <dd><?php echo $oraciones->nombre; ?>.</dd>
+		  <dt>Email:</dt>
+		  <dd><?php echo $oraciones->email; ?>.</dd>
+		  <dt>Petición:</dt>
+		  <dd><?php echo $oraciones->peticion; ?>.</dd>
+		</dl>
+		<small><strong>Petición realizada el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y", strtotime($oraciones->created_at)); ?> a las
+				<?php echo date("H:i:s a", strtotime($oraciones->created_at)); ?>
+
+			</cite>
+		</small>
+		</blockquote>
+     
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout3', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

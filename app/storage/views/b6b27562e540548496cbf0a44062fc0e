@@ -1,0 +1,74 @@
+<?php
+  if ($sliders->exists):
+      $form_data = array('route' => array('slider.update', $sliders->id), 'method' => 'PATCH', 'files' => true);
+      $action    = 'Editar';
+  else:
+      $form_data = array('route' => 'slider.store', 'method' => 'POST', 'files' => true);
+      $action    = 'Crear';        
+  endif;
+?>
+<?php $__env->startSection('title'); ?> <?php echo $action; ?> slider | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+  <?php echo Form::model($sliders, $form_data, array('role' => 'form')); ?>
+
+    <legend><h3 class="form-signin-heading"><?php echo $action; ?> Slider</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+        <li class="active"><?php echo $action; ?> Slider</li>
+    </ul>
+    <?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php if($action == "Crear"): ?>
+      <input type="hidden" name="id_user" value="<?php echo Auth:: user()->id; ?>">
+      <input type="hidden" name="update_user" value="<?php echo Auth:: user()->id; ?>">
+    <?php else: ?> 
+      <input type="hidden" name="update_user" value="<?php echo Auth:: user()->id; ?>">
+    <?php endif; ?>
+
+    <?php echo Form::label('titulo', 'Titulo:'); ?> 
+    <?php echo Form::text('titulo', null, array('class' => 'form-control', 'id' => 'title1', 'placeholder' =>'Título del slider')); ?>
+
+    <?php echo Form::label('ruta', 'Ruta:'); ?> 
+    <?php echo Form::text('ruta', null, array('class' => 'form-control', 'id' => 'url2', 'placeholder' =>'Ruta del artículo')); ?>
+
+    <?php echo Form::label('content', 'Contenido:'); ?> 
+    <?php echo Form::textarea('content', null, array('class' => 'form-control', 'id' => 'editor1')); ?>
+
+    <?php echo Form::label('file', 'File:'); ?> 
+    <?php echo Form::file('file'); ?>
+
+    <?php echo Form::label('tipo', 'Tipo:'); ?> 
+    <?php echo Form::select('tipo', array(
+      '' => 'Normal',
+      'active' => 'Active'
+      ), null, ['class' => 'form-control']); ?>
+
+    <br>
+    <?php if($action == 'Crear'): ?>      
+      <?php echo Form::button($action.' slider', array('type' => 'submit', 'class' => 'btn btn-success')); ?>
+
+    <?php else: ?>
+      <?php echo Form::button($action.' slider', array('type' => 'submit', 'class' => 'btn btn-warning')); ?>
+
+    <?php endif; ?>
+   
+  <?php echo Form::close(); ?>
+
+  <p>
+    <?php if($action == 'Editar'): ?>  
+      <?php echo Form::model($sliders, array('route' => array('slider.destroy', $sliders->id), 'method' => 'DELETE', 'role' => 'form')); ?>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+              <?php echo Form::submit('Eliminar slider', array('class' => 'btn btn-danger')); ?>
+
+          </div>
+        </div>
+      <?php echo Form::close(); ?>
+
+    <?php endif; ?>
+  </p>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

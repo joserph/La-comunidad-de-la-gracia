@@ -1,0 +1,76 @@
+<?php
+
+    if ($fechas->exists):
+        $form_data = array('route' => array('fechas.update', $fechas->id), 'method' => 'PATCH');
+        $action    = 'Editar';
+    else:
+        $form_data = array('route' => 'fechas.store', 'method' => 'POST');
+        $action    = 'Crear';        
+    endif;
+
+?>
+
+
+<?php $__env->startSection('content'); ?>
+
+<script>
+  $(document).ready(function(){
+    
+    $("#title1").blur(function(){
+      url = $('#title1').val();
+      guion = url.replace(/ /g, "-");
+      enie = guion.replace(/ñ/g, "n");
+      a = enie.replace(/á/g, "a");
+      aa = a.replace(/Á/g, "a");
+      e = aa.replace(/é/g, "e");
+      ee = e.replace(/É/g, "e");
+      i = ee.replace(/í/g, "i");
+      ii = i.replace(/Í/g, "i");
+      o = ii.replace(/ó/g, "o");
+      oo = o.replace(/Ó/g, "o");
+      u = oo.replace(/ú/g, "u");
+      uu = u.replace(/Ú/g, "u");
+      ba = "/";
+      barra = uu.replace(ba, "-");
+      barra2 = barra.replace(ba, "-").toLowerCase();
+
+      alert("This input field has lost its focus.");
+     $('#url2').val(barra2);
+    });
+  });
+</script>
+	
+	<h1><?php echo $action; ?> Fecha</h1>
+
+	<?php echo Form::model($fechas, $form_data, array('role' => 'form')); ?>
+
+	<?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    
+    <input type="hidden" name="id_user" value="<?php echo Auth::user()->id; ?>">
+    
+    <?php echo Form::label('fecha', 'Fecha:'); ?> 
+    <?php echo Form::text('fecha', null, array('class' => 'form-control', 'id' => 'title1')); ?> <br>
+
+    <?php echo Form::label('url', 'Url:'); ?> <br>
+    <?php echo Form::text('url', null, array('class' => 'form-control', 'id' => 'url2')); ?> <br>
+
+    <?php echo Form::label('tipo', 'Tipo:'); ?> <br>
+    <?php echo Form::text('tipo', null, array('class' => 'form-control')); ?> <br>
+              
+    <?php echo Form::button($action, array('type' => 'submit', 'class' => 'btn btn-success')); ?>
+   
+  <?php echo Form::close(); ?>
+  <p>
+    <?php if($action == 'Editar'): ?>  
+      <?php echo Form::model($fechas, array('route' => array('fechas.destroy', $fechas->id), 'method' => 'DELETE', 'role' => 'form')); ?>
+        <div class="row">
+          <div class="form-group col-md-4">
+              <?php echo Form::submit('Eliminar fecha', array('class' => 'btn btn-danger')); ?>
+          </div>
+        </div>
+      <?php echo Form::close(); ?>
+    <?php endif; ?>
+  </p>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

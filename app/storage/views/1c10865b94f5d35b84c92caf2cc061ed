@@ -1,0 +1,114 @@
+<?php
+    if ($menus->exists):
+        $form_data = array('route' => array('menu.update', $menus->id), 'method' => 'PATCH');
+        $action    = 'Editar';
+    else:
+        $form_data = array('route' => 'menu.store', 'method' => 'POST');
+        $action    = 'Crear';        
+    endif;
+?>
+<?php $__env->startSection('title'); ?> <?php echo $action; ?> menú | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+<script>
+  $(document).ready(function(){
+      $("#estatus").blur(function(){
+        valor = $('#estatus').val();
+        if(valor != "publico")
+        {
+          $("#padre").hide();
+          $("#padre1").hide();
+        }else{
+          $("#padre").show();
+          $("#padre1").show();
+        }
+      });
+  });
+</script>
+
+	<?php echo Form::model($menus, $form_data, array('role' => 'form')); ?>
+
+    <legend><h3 class="form-signin-heading"><?php echo $action; ?> Menú</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><?php echo HTML::link('menu', 'Configuración de Menú'); ?></li>
+        <li class="active"><?php echo $action; ?> Menú</li>
+    </ul>
+    <?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php if($action == "Crear"): ?>
+      <input type="hidden" name="id_user" value="<?php echo Auth::user()->id; ?>">
+      <input type="hidden" name="update_user" value="<?php echo Auth::user()->id; ?>">
+    <?php endif; ?>
+    <?php echo Form::label('nombre', 'Nombre:'); ?> 
+    <?php echo Form::text('nombre', null, array('class' => 'form-control', 'autofocus')); ?>
+
+    <?php echo Form::label('url', 'Ruta:'); ?> 
+    <?php echo Form::text('url', null, array('class' => 'form-control')); ?>
+
+    <?php echo Form::label('estatus', 'Estatus:'); ?>
+
+    <?php echo Form::select('estatus', array(
+      '' => 'Select',
+      'privado' => 'Privado',
+      'publico' => 'Publico',
+      'principal' => 'Principal'
+      ), null, ['class' => 'form-control']); ?>
+
+    <?php echo Form::label('tipo', 'Tipo:'); ?> 
+    <?php echo Form::select('tipo', array(
+        '' => 'Select',
+        'normal' => 'Normal',
+        'expandido' => 'Expandido'
+      ), null, ['class' => 'form-control']); ?>   
+    <label for="padre" id="padre1">Padre:</label>
+    <select class="form-control" id="padre" name="padre">
+     <option value="-">Select</option>
+      <?php foreach($padres as $menu): ?>
+          <option value="<?php echo $menu->id; ?>"> <?php echo $menu->nombre; ?> </option> 
+      <?php endforeach; ?> 
+    </select>
+    <?php echo Form::label('peso', 'Peso:'); ?> 
+    <?php echo Form::select('peso', array(
+        '' => 'Select',
+        '1' => '1',  
+        '2' => '2',
+        '3' => '3', 
+        '4' => '4',
+        '5' => '5', 
+        '6' => '6',
+        '7' => '7', 
+        '8' => '8',
+        '9' => '9', 
+        '10' => '10',
+        '11' => '11', 
+        '12' => '12',
+      ), null, ['class' => 'form-control']); ?> 
+    <?php echo Form::label('cat', 'Cat:'); ?> 
+    <?php echo Form::select('cat', array(
+        '' => 'Select',
+        'fecha' => 'Fecha',  
+        'post' => 'Post'
+      ), null, ['class' => 'form-control']); ?>  
+    <br>
+    <?php echo Form::button($action.' menú', array('type' => 'submit', 'class' => 'btn btn-success')); ?>
+
+   
+  <?php echo Form::close(); ?>
+
+  <p>
+    <?php if($action == 'Editar'): ?>  
+      <?php echo Form::model($menus, array('route' => array('menu.destroy', $menus->id), 'method' => 'DELETE', 'role' => 'form')); ?>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+              <?php echo Form::submit('Eliminar menú', array('class' => 'btn btn-danger')); ?>
+
+          </div>
+        </div>
+      <?php echo Form::close(); ?>
+
+    <?php endif; ?>
+  </p>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout3', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

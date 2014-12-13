@@ -1,0 +1,10 @@
+<?php $__env->startSection('content'); ?>
+
+  <h1>User</h1>
+
+    Username: <?php echo $user->username; ?> <br>
+    Email: <?php echo $user->email; ?> <br>
+    Id_rol: <?php echo $user->id_rol; ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

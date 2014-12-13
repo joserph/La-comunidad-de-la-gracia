@@ -1,0 +1,29 @@
+<?php $__env->startSection('title'); ?> Usuario | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+  
+  	<legend>Perfil de <?php echo $user->username; ?> </legend>
+  	<ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><?php echo HTML::link('admin', 'Lista de Usuarios'); ?></li>
+        <li class="active">Perfil de <?php echo $user->username; ?></li>
+    </ul>
+
+    <div class="text-center row">
+    	<h1><span class="glyphicon glyphicon-user"></span></h1>
+    	<h3><?php echo $user->username; ?></h3>
+    	<?php if($user->id_rol == 0): ?>
+	  		<p>Administrador</p>
+	  	<?php elseif($user->id_rol == 1): ?>
+	  		<p>Editor</p>
+	 	<?php else: ?> 
+	  		<p>Usuario</p>
+	  	<?php endif; ?>
+    	<p><span class="glyphicon glyphicon-envelope"></span> <?php echo $user->email; ?></p>
+    	<p><span class="glyphicon glyphicon-map-marker"></span> Caracas - Venezuela</p>
+    	<p><span class="glyphicon glyphicon-star"></span> Registrado el <cite title="Source Title"><?php echo date("d/m/Y H:i:s a", strtotime($user->created_at)); ?>.</cite></p>
+        
+    </div>
+    
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout3', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

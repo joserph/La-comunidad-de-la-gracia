@@ -1,0 +1,60 @@
+<?php
+    if ($user->exists):
+        $form_data = array('route' => array('admin.update', $user->id), 'method' => 'PATCH');
+        $action    = 'Editar';      
+    endif;
+?>
+<?php $__env->startSection('title'); ?> <?php echo $action; ?> usuario | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+  <?php echo Form::model($user, $form_data, array('role' => 'form')); ?>
+
+    <legend><h3 class="form-signin-heading"><?php echo $action; ?> Usuario</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><?php echo HTML::link('admin', 'Administración de Usuarios'); ?></li>
+        <li class="active"><?php echo $action; ?> Usuario</li>
+    </ul>
+    <?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo Form::label('nombre', 'Nombre:'); ?> 
+    <?php echo Form::text('nombre', null, array('class' => 'form-control')); ?>
+
+    <?php echo Form::label('username', 'Username:'); ?> 
+    <?php echo Form::text('username', null, array('class' => 'form-control')); ?>
+
+    <?php echo Form::label('email', 'Email:'); ?> 
+    <?php echo Form::text('email', null, array('class' => 'form-control')); ?>
+
+    <?php echo Form::label('ubicacion', 'Ubicacion:'); ?> 
+    <?php echo Form::text('ubicacion', null, array('class' => 'form-control', 'placeholder' => 'Ej. Madrid - España')); ?>
+
+    <?php echo Form::label('id_rol', 'Id_rol:'); ?> 
+    <?php echo Form::select('id_rol', array(
+      '2' => 'Usuario',
+      '1' => 'Editor',
+      '0' => 'Administrador'
+      ), null, ['class' => 'form-control']); ?>
+
+    <br>
+    <?php echo Form::button($action.' usuario', array('type' => 'submit', 'class' => ' btn btn-warning')); ?>
+
+   
+  <?php echo Form::close(); ?>
+
+  <p>
+    <?php if($action == 'Editar'): ?>  
+      <?php echo Form::model($user, array('route' => array('admin.destroy', $user->id), 'method' => 'DELETE', 'role' => 'form')); ?>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+              <?php echo Form::submit('Eliminar usuario', array('class' => 'btn btn-danger')); ?>
+
+          </div>
+        </div>
+      <?php echo Form::close(); ?>
+
+    <?php endif; ?>
+  </p>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout3', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>La Comunidad de la Gracia</title>
+    
+    <?php echo HTML::style('//fonts.googleapis.com/css?family=Lato:400,700,400italic'); ?>
+
+	<?php echo HTML::style('assets/css/sliding.css'); ?><!--Luego colocar solo en el home-->
+	<?php echo HTML::style('assets/css/reset.css'); ?>
+
+	<?php echo HTML::style('assets/css/bootstrap.css'); ?>
+
+	<?php echo HTML::style('assets/css/flatly-bootstrap.css', array('media' => 'screen')); ?>  
+	<!--Javascript-->
+	<?php echo HTML::script('assets/js/jquery.min.js'); ?>
+
+	<?php echo HTML::script('assets/js/menuresponsive.js'); ?>
+
+	<?php echo HTML::script('assets/js/bootstrap.js'); ?>
+
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]--><!--[if (gte IE 6)&(lte IE 8)]>
+    <![endif]-->
+	<!--Fin Javascript-->
+</head>
+<body>
+	
+	<div class="container">
+	<header>
+		<div class="row">
+  			<div class="col-md-12"><?php echo HTML::image('assets/img/header04.png', 'Cdlgracia-header', array('class' => 'img-responsive visible-lg')); ?></div>
+  			<div class="col-md-12 text-center"><a href="<?php echo URL::route('home'); ?>"><?php echo HTML::image('assets/img/Logo3D02-txt.png', 'Cdlgracia-logo3D', array('class' => 'img-responsive hidden-lg imgcenter espacio01')); ?></a></div>  			
+  			<div class="col-md-9 "><?php echo HTML::image('assets/img/leyen01.png', 'Cdlgracia-slogan', array('class' => 'img-responsive visible-lg')); ?></div>
+  			<div class="col-md-3 ">
+  				<h1 class="h1prin2 text-center">
+  					<a href="<?php echo URL::route('home'); ?>" class="titulop visible-lg text-center"><span class="span01">La</span><span class="span02">C</span><span class="span05">OMUNIDAD</span> <span class="span03">de</span> <span class="span03">la</span><span class="span04">Gracia</span></a>
+  				</h1>
+  			</div>
+  			<div class="col-md-12"><?php echo HTML::image('assets/img/leyen01.png', 'Cdlgracia-slogan', array('class' => 'img-responsive visible-md espacio02')); ?></div>
+		</div>
+		<?php echo $__env->make('master.navegation', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php echo $__env->yieldContent('carrusel'); ?>
+	</header><!-- /header -->
+		
+		<div class="row">
+		  	<div class="col-md-8">
+		  		<?php if(Session::has('global')): ?>
+			  		<div class="alert alert-warning">
+				      	<button type="button" class="close" data-dismiss="alert">×</button>
+						<p><?php echo Session::get('global'); ?></p>
+				    </div>
+			    <?php endif; ?>
+			    <?php if(Session::has('create')): ?>
+				    <div class="alert alert-dismissable alert-info">
+					  	<button type="button" class="close" data-dismiss="alert">×</button>
+					  	<p><strong>Bien hecho! </strong> <?php echo Session::get('create'); ?></p>
+					</div>	
+			    <?php endif; ?>
+			    <?php if(Session::has('editar')): ?>
+			    	<div class="alert alert-dismissable alert-success">
+					  	<button type="button" class="close" data-dismiss="alert">×</button>
+					  	<p><strong>Bien hecho! </strong> <?php echo Session::get('editar'); ?></p>
+					</div>			  		
+			    <?php endif; ?>
+			    <?php if(Session::has('delete')): ?>
+			    	<div class="alert alert-dismissable alert-danger">
+					  	<button type="button" class="close" data-dismiss="alert">×</button>
+					  	<p><?php echo Session::get('delete'); ?></p>
+					</div>
+			    <?php endif; ?>
+				<?php echo $__env->yieldContent('content'); ?>
+		  	</div><!--End col-md-8-->
+		  	<div class="col-md-4">
+		  		
+		  		<aside>
+		  		<?php echo $__env->make('master.navegation2', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		  			<?php echo $__env->yieldContent('aside'); ?>
+		  			<div class="row">
+		  				<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title"><span class="glyphicon glyphicon-thumbs-up"></span> Nuestras Redes Sociales</h3>
+							</div>
+							<div class="panel-body">
+		  						<div class="col-xs-6"><a href="https://www.facebook.com/CdlGracia" target="_blank"><?php echo HTML::image('assets/img/facebook.png', 'Cdlgracia-facebook', array('class' => 'img-responsive centrado')); ?></a></div>
+		  						<div class="col-xs-6"><a href="https://twitter.com/CdlGracia" target="_blank"><?php echo HTML::image('assets/img/twitter.png', 'Cdlgracia-twitter', array('class' => 'img-responsive centrado')); ?></a></div>
+		  						<div class="col-xs-6"><a href="https://www.youtube.com/channel/UCMuhhfg4InG0Fi-oPvgRT3A" target="_blank"><?php echo HTML::image('assets/img/youtube.png', 'Cdlgracia-youtube', array('class' => 'img-responsive centrado' )); ?></a></div>
+		  						<div class="col-xs-6"><a href="https://plus.google.com/u/0/111775038431373780891/posts" target="_blank"><?php echo HTML::image('assets/img/google+.png', 'Cdlgracia-google+', array('class' => 'img-responsive centrado')); ?></a></div>
+		  					</div>
+		  				</div>
+		  			</div>
+		  			<div class="row">
+		  				<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title"><span class="glyphicon glyphicon-film"></span> Último Video 
+									<?php if(Auth::check() && (Auth::user()->id_rol == 0)): ?>
+										<?php
+									$videos = DB::table('predicas')->get();
+									?>
+			  						<?php foreach($videos as $video): ?>
+			  							<?php if($video->title == 'Video'): ?>
+			  								<a href="<?php echo route('post.edit', $video->id); ?>" class="btn btn-warning btn-sm">Editar</a>
+			  							<?php endif; ?>
+			  						<?php endforeach; ?>
+									<?php endif; ?>
+								</h3>
+
+							</div>
+							<div class="panel-body">
+								<?php
+								$videos = DB::table('predicas')->get();
+								?>
+		  						<?php foreach($videos as $video): ?>
+		  							<?php if($video->title == 'Video'): ?>
+		  								<?php echo $video->content; ?>
+
+		  							<?php endif; ?>
+		  						<?php endforeach; ?>
+		  					</div>
+		  				</div>
+		  			</div>
+		  			<div class="panel panel-success">
+					  <div class="panel-heading">
+					    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span> Anuncios</h3>
+					  </div>
+					  <div class="panel-body">
+					    <?php 
+					      $cont1 = 0;
+					      $cont2 = 0;
+					      $cont3 = 0;
+					      $cont4 = 0;
+					      $cont5 = 0;
+					    ?>
+					    <?php foreach($anuncios as $anuncio): ?>
+						<div id="animated-example" class="animated tada">
+							<div class="list-group">
+							  	<a href="#" class="list-group-item" data-toggle="modal" data-target="#myModal<?php echo $cont1 += 1; ?>">
+								    <h4 class="list-group-item-heading"><?php echo $anuncio->nombre; ?></h4>
+								    <p class="list-group-item-text anuncio<?php echo $cont2 += 1; ?>">Dia <?php echo date("d/m/Y", strtotime($anuncio->fecha)); ?></p>
+								    <p class="list-group-item-text anuncio<?php echo $cont3 += 1; ?>">Hora <?php echo date("H:i:s a", strtotime($anuncio->hora)); ?></p>
+								    <p class="list-group-item-text anuncio<?php echo $cont4 += 1; ?>"><?php echo substr($anuncio->content, 0, 50); ?>...</p>
+							  	</a>  
+							</div>
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="myModal<?php echo $cont5 += 1; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  	<div class="modal-dialog">
+						    	<div class="modal-content">
+								    <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+								        <h4 class="modal-title" id="myModalLabel"><?php echo $anuncio->nombre; ?></h4>
+								    </div>
+								    <div class="modal-body">
+								        <blockquote>
+										<dl class="dl-horizontal">
+											  <dt>Nombre:</dt>
+											  <dd><?php echo $anuncio->nombre; ?>.</dd>
+											  <dt>Fecha:</dt>
+											  <dd><?php echo date("d/m/Y", strtotime($anuncio->fecha)); ?>.</dd>
+											  <dt>Hora:</dt>
+											  <dd><?php echo date("H:i:s a", strtotime($anuncio->hora)); ?>.</dd>
+											  <dt>Contenido:</dt>
+											  <dd><?php echo $anuncio->content; ?>.</dd>
+										</dl>
+										<small><strong>Creado el 
+											<cite title="Source Title">
+												<?php echo date("d/m/Y H:i:s a", strtotime($anuncio->created_at)); ?>
+
+											</cite>
+											 por 
+											<cite>
+												<?php foreach($users as $user): ?>
+										            <?php if($user->id == $anuncio->id_user): ?>
+										                <?php echo $user->username; ?>.
+										            <?php endif; ?>
+										        <?php endforeach; ?>
+											</cite>
+											</strong>
+										</small>
+										<small><strong>Ultima actualización el 
+											<cite title="Source Title">
+												<?php echo date("d/m/Y H:i:s a", strtotime($anuncio->updated_at)); ?>
+
+											</cite>
+											 por 
+											<cite>
+												<?php foreach($users as $user): ?>
+										            <?php if($user->id == $anuncio->update_user): ?>
+										                <?php echo $user->username; ?>.
+										            <?php endif; ?>
+										        <?php endforeach; ?>
+											</cite>
+											</strong>
+										</small>
+										</blockquote>
+								    </div>
+								    <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>								     
+								    </div>
+						    	</div>
+						  	</div>
+						</div>
+						<!--Fin modal-->
+						<br>
+						<?php endforeach; ?>
+					  </div>
+					</div>
+
+					
+		  		</aside>
+		  		<article>
+		  			<?php echo $__env->yieldContent('aside1'); ?>
+		  		</article>
+		  	</div><!--End col-md-4-->
+		</div><!--End row-->
+
+		<footer>
+			<div class="well2 well-sm">
+  				<div class="row">
+				  	<div class="col-md-4 text-center">
+				  		<h5 class="text-success">Menú Principal</h5>
+				  		<h4 class="text-muted"><a href="<?php echo URL::route('home'); ?>" title="" class="text-muted"><small>Inicio</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="nosotros" title="" class="text-muted"><small>Nosotros</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="ministerios" title="" class="text-muted"><small>Ministerios</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="galeria" title="" class="text-muted"><small>Galeria</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="contacto" title="" class="text-muted"><small>Contacto</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="vision-2020" title="" class="text-muted"><small>Visión 2020</small></a></h4 class="text-muted">
+				  	</div>
+				  	<div class="col-md-4">
+				  		<ul class="language_bar_chooser">
+						    <?php foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties): ?>
+						        <li>
+						            <a rel="alternate" hreflang="<?php echo $localeCode; ?>" href="<?php echo LaravelLocalization::getLocalizedURL($localeCode); ?>">
+						                <?php echo e($properties['native']); ?>
+
+						            </a>
+						        </li>
+						    <?php endforeach; ?>
+						</ul>
+				  	</div>
+				  	<div class="col-md-4">
+				  		<!-- Button trigger modal -->
+						<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+						  Launch demo modal
+						</button>
+
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+						      </div>
+						      <div class="modal-body">
+						        ...
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        <button type="button" class="btn btn-primary">Save changes</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+				  	</div>
+				</div>
+			</div>
+		</footer>
+	</div><!--End Container-->
+	
+</body>
+</html>
+
+

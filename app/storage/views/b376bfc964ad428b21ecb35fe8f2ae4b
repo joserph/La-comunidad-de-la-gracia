@@ -1,0 +1,57 @@
+<?php
+    if ($carrusels->exists):
+        $form_data = array('route' => array('carrusel.update', $carrusels->id), 'method' => 'PATCH', 'files' => true);
+        $action    = 'Editar';
+    else:
+        $form_data = array('route' => 'carrusel.store', 'method' => 'POST', 'files' => true);
+        $action    = 'Crear';        
+    endif;
+?>
+
+<?php $__env->startSection('content'); ?>
+
+	<?php echo Form::model($carrusels, $form_data, array('role' => 'form')); ?>
+  <legend><h3 class="form-signin-heading"><?php echo $action; ?> Carrusel</h3></legend>
+  <ul class="breadcrumb">
+      <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+      <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+      <li class="active"><?php echo $action; ?> Carrusel</li>
+  </ul>
+  <?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+    <?php if($action == "Crear"): ?>
+      <input type="hidden" name="id_user" value="<?php echo Auth::user()->id; ?>">
+      <input type="hidden" name="update_user" value="<?php echo Auth::user()->id; ?>">
+    <?php else: ?>
+      <input type="hidden" name="update_user" value="<?php echo Auth::user()->id; ?>">
+    <?php endif; ?>
+    <?php echo Form::label('nombre', 'Nombre:'); ?> 
+    <?php echo Form::text('nombre', null, array('class' => 'form-control', 'id' => 'title1', 'placeholder' =>'Título de carrusel')); ?> 
+    <?php echo Form::label('url', 'Ruta:'); ?> 
+    <?php echo Form::text('url', null, array('class' => 'form-control', 'id' => 'url2', 'placeholder' =>'Ruta de la publucación')); ?> 
+    <?php echo Form::label('content', 'Contenido:'); ?>
+    <?php echo Form::textarea('content', null, array('class' => 'form-control')); ?> 
+    <?php echo Form::label('file', 'File:'); ?> 
+    <?php echo Form::file('file'); ?>
+    <br>
+    <?php if($action == 'Crear'): ?>
+      <?php echo Form::button($action.' carrusel', array('type' => 'submit', 'class' => 'btn btn-success')); ?>
+    <?php else: ?> 
+      <?php echo Form::button($action.' carrusel', array('type' => 'submit', 'class' => 'btn btn-warning')); ?>
+    <?php endif; ?>
+   
+  <?php echo Form::close(); ?>
+  <p>
+    <?php if($action == 'Editar'): ?>  
+      <?php echo Form::model($carrusels, array('route' => array('carrusel.destroy', $carrusels->id), 'method' => 'DELETE', 'role' => 'form')); ?>
+        <div class="row">
+          <div class="form-group col-md-4">
+              <?php echo Form::submit('Eliminar carrusel', array('class' => 'btn btn-danger')); ?>
+          </div>
+        </div>
+      <?php echo Form::close(); ?>
+    <?php endif; ?>
+  </p>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

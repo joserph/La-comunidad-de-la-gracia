@@ -1,0 +1,84 @@
+<?php
+    if ($cronjobs->exists):
+        $form_data = array('route' => array('cronjobs.update', $cronjobs->id), 'method' => 'PATCH');
+        $action    = 'Editar';
+    else:
+        $form_data = array('route' => 'cronjobs.store', 'method' => 'POST');
+        $action    = 'Crear';        
+    endif;
+?>
+<?php $__env->startSection('title'); ?> <?php echo $action; ?> cron Job | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+	<?php echo Form::model($cronjobs, $form_data, array('role' => 'form')); ?>
+
+
+  <legend><h3 class="form-signin-heading"><?php echo $action; ?> Cron Job</h3></legend>
+  <ul class="breadcrumb">
+      <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+      <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+      <li class="active"><?php echo $action; ?> Cron Job</li>
+  </ul>
+  <?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+    <?php if($action == "Crear"): ?>
+      <input type="hidden" name="id_user" value="<?php echo Auth::user()->id; ?>">
+      <input type="hidden" name="update_user" value="<?php echo Auth::user()->id; ?>">
+    <?php else: ?>
+      <input type="hidden" name="update_user" value="<?php echo Auth::user()->id; ?>">
+    <?php endif; ?>
+
+    <?php echo Form::label('tipo', 'Tipo:'); ?> 
+    <?php echo Form::select('tipo', array(
+      '' => 'Select',
+      'Actualizar' => 'Actualizar',
+      'Borrar' => 'Borrar'     
+      ), null, ['class' => 'form-control']); ?> 
+    <?php echo Form::label('dia', 'Día:'); ?> 
+    <?php echo Form::select('dia', array(
+      '' => 'Select',
+      'Lunes' => 'Lunes',
+      'Martes' => 'Martes',
+      'Miercoles' => 'Miercoles',
+      'Jueves' => 'Jueves',
+      'Viernes' => 'Viernes',
+      'Sabado' => 'Sabado',
+      'Domingo' => 'Domingo'       
+      ), null, ['class' => 'form-control']); ?> 
+    <?php echo Form::label('capitulo', 'Capítulo:'); ?> 
+    <select name="id_tarea" id="" class="form-control">
+      <?php $cont = 0;?>
+      <?php foreach($versiculo as $verso): ?>
+        <?php if($cont == 0){ ?>
+        <option value="<?php echo $verso->id; ?>"><?php echo $verso->libro; ?> <?php echo $verso->capitulo; ?>:<?php echo $verso->versiculo; ?></option>
+        <?php } $cont += 1; ?>
+      <?php endforeach; ?>
+    </select> 
+    <br>
+    <?php if($action == 'Crear'): ?>
+      <?php echo Form::button($action.' cron job', array('type' => 'submit', 'class' => 'btn btn-success')); ?>
+
+    <?php else: ?>
+      <?php echo Form::button($action.' cron job', array('type' => 'submit', 'class' => 'btn btn-warning')); ?>
+
+    <?php endif; ?>
+   
+  <?php echo Form::close(); ?>
+
+  <p>
+    <?php if($action == 'Editar'): ?>  
+      <?php echo Form::model($cronjobs, array('route' => array('cronjobs.destroy', $cronjobs->id), 'method' => 'DELETE', 'role' => 'form')); ?>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+              <?php echo Form::submit('Eliminar cron job', array('class' => 'btn btn-danger')); ?>
+
+          </div>
+        </div>
+      <?php echo Form::close(); ?>
+
+    <?php endif; ?>
+  </p>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

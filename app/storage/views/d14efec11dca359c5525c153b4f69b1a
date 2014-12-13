@@ -1,0 +1,33 @@
+<?php $__env->startSection('content'); ?>
+	
+    <legend><h3>Peticiones de Oración</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+        <li class="active">Peticiones de Oración</li>
+    </ul>
+	<table class="table table-striped table-hover table-responsive">
+    <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Petición</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+    </tr>
+    <?php foreach($oraciones as $oracion): ?>
+    <tr>
+        <td><?php echo $oracion->nombre; ?></td>
+        <td><?php echo $oracion->email; ?></td>
+        <td><?php echo substr($oracion->peticion, 0, 50); ?>...</td>
+        <td><?php echo date("d/m/Y", strtotime($oracion->created_at)); ?></td>
+        <td>
+            <a href="<?php echo route('oracion.show', $oracion->id); ?>" class="btn btn-info btn-xs">Ver </a>
+            <a href="<?php echo route('oracion.edit', $oracion->id); ?>" class="btn btn-warning btn-xs"> Editar</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </table>    
+    <?php echo $oraciones->links(); ?>  
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout3', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

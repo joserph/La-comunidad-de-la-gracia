@@ -1,0 +1,24 @@
+<?php $__env->startSection('title'); ?> Cambiar contraseña | Iglesia La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+	
+<form action="<?php echo URL::route('account-change-password-post'); ?> " method="post">
+	<div class="col-md-6 col-md-offset-3">
+		<legend><h3 class="form-signin-heading">Cambiar contraseña</h3></legend>
+		<?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php echo Form::label('old_password', 'Password actual:'); ?>
+
+		<input type="password" name="old_password" class="form-control" placeholder="Contraseña actual">
+		<?php echo Form::label('new_password', 'Password nuevo:'); ?>
+
+		<input type="password" name="password" class="form-control" placeholder="Nueva contraseña">
+		<?php echo Form::label('new_password_again', 'Repetir Password nuevo:'); ?>
+
+		<input type="password" name="password_again" class="form-control" placeholder="Repetir conteseña">	
+		<br>
+		<button class="btn btn-warning btn-block" type="submit">Cambiar contraseña</button>
+		<?php echo Form::token(); ?>	
+	</div>
+</form>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout4', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,53 @@
+<?php $__env->startSection('title'); ?> <?php echo $biblia->libro; ?> <?php echo $biblia->capitulo; ?>:<?php echo $biblia->versiculo; ?> | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+   
+   	<legend><h3><?php echo $biblia->libro; ?> <?php echo $biblia->capitulo; ?>:<?php echo $biblia->versiculo; ?></h3></legend>
+    
+    	<blockquote>
+		<dl class="dl-horizontal">
+		  <dt>Libro:</dt>
+		  <dd><?php echo $biblia->libro; ?>.</dd>
+		  <dt>Capítulo:</dt>
+		  <dd><?php echo $biblia->capitulo; ?>.</dd>
+		  <dt>Versículo:</dt>
+		  <dd><?php echo $biblia->versiculo; ?>.</dd>
+		  <dt>Contenido:</dt>
+		  <dd><?php echo $biblia->content; ?></dd>
+		</dl>
+		<?php if(Auth::check()): ?>
+		<small><strong>Creado el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($biblia->created_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $biblia->id_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+			</strong>
+		</small>
+		<small><strong>Ultima actualización el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($biblia->updated_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $biblia->update_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+			</strong>
+		</small>
+		<?php endif; ?>
+		</blockquote>
+     
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,67 @@
+<?php $__env->startSection('content'); ?>
+	<?php if(Auth::check() && (Auth::user()->id_rol == 2)): ?>
+		<p>Hello, <?php echo Auth:: user()->username; ?> y rol <?php echo Auth:: user()->id_rol; ?> - User</p>
+	<?php elseif(Auth::check() && (Auth::user()->id_rol == 1)): ?>
+		<p>Hello, <?php echo Auth:: user()->username; ?> y rol <?php echo Auth:: user()->id_rol; ?> - Editor</p>
+	<?php elseif(Auth::check() && (Auth::user()->id_rol == 0)): ?>
+		<p>Hello, <?php echo Auth:: user()->username; ?> y rol <?php echo Auth:: user()->id_rol; ?> - Admin</p>
+	<?php else: ?>
+		
+	<?php endif; ?>
+
+	<p>
+	¿Quienes Somos?: Somos una Comunidad Cristiana, Ministrando el amor de Dios en al Oeste de la Ciudad de Caracas. Compartiendo la palabra de Dios, hemos ido creciendo sostenidamente al pasar de los años, extendiendo la enseñanza, junto a las familias radicadas en el área.
+
+ 
+
+Visión
+
+Ser instrumentos para la transformación en la vida personal, ministerial y laboral.
+
+Misión
+
+Entrenar líderes, a través de los Ministerios a fin de alcanzar a otras personas para una vida con propósito.
+
+Estrategia
+
+En el gran mandamiento y en la gran comisión encontramos los cinco (5) propósitos de Dios para nuestras vidas.
+
+Objetivo General
+
+Consolidar la iglesia a través de los cinco (5) propósitos de Dios.
+
+Objetivos Específicos
+
+Adoración: Significa dar un homenaje, la adoración lleva consigo la devoción, el honor y alabanza, es entregar a Dios todo nuestro amor.
+
+Comunión: Viene de dos palabras Común y Unión, es decir una unión total y absoluta entre dos o mas personas. Comunión con Dios es la unión total y completa de Dios con nosotros y de nosotros con Dios.
+
+Discipulado: Entrenar personas para los ministerios.
+
+Evangelismo: Comunicar el Evangelio a Buenas Nuevas a las personas y enseñarles el perdón que Dios les ofrece.
+
+Ministerio: Usar lo que Dios me ha dado para servirle a Él y a las necesidades de otros.
+
+ 
+
+Valores
+
+Humildad: Rechazo el orgullo, la persona humilde no aspira a la grandeza personal, porque ha descubierto que ser hijo de Dios es un valor muy superior.
+
+Empatia: Tratar de penetrar dentro de los sentimientos y motivos de otra persona, implica ponerse en los zapatos de otros, para entender realmente sus penas, sus temores y sus necesidades.
+
+Mansedumbre: Es uno de los llamados Frutos del Espíritu Santo, es la virtud que modera la ira y sus efectos. Es una forma de templanza que evita todo movimiento desordenado de resentimiento por el comportamiento de otros.
+
+Rectitud: Carácter de aquello que es recto y justo en el sentido ético o moral, que no tiene curvas ni ángulos.
+
+Compasión: Llevar las cargas de otros como si fuesen tuyas.
+
+Pureza: Consiste en no tener nada que sea contrario a Dios, exige un entrenamiento diario de la voluntad y una disciplina constante.
+
+Compromiso: Tipo de Acuerdo en el cual las partes asumen ciertas obligaciones. Va mas allá de cumplir con una obligación, es poner en juego nuestras capacidades para sacar adelante todo aquello que se nos ha confiado.
+
+
+	</p>
+		
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

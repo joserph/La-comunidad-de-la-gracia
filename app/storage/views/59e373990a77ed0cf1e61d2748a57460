@@ -1,0 +1,12 @@
+<?php $__env->startSection('content'); ?>
+	<?php if(Auth::check() && (Auth::user()->id_rol == 2)): ?>
+		<p>Hello, <?php echo Auth:: user()->username; ?> y rol <?php echo Auth:: user()->id_rol; ?> - User</p>
+	<?php elseif(Auth::check() && (Auth::user()->id_rol == 1)): ?>
+		<p>Hello, <?php echo Auth:: user()->username; ?> y rol <?php echo Auth:: user()->id_rol; ?> - Editor</p>
+	<?php elseif(Auth::check() && (Auth::user()->id_rol == 0)): ?>
+		<p>Hello, <?php echo Auth:: user()->username; ?> y rol <?php echo Auth:: user()->id_rol; ?> - Admin</p>
+	<?php else: ?>
+		<p>You are not signed in.</p>
+	<?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

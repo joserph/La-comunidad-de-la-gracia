@@ -1,0 +1,46 @@
+<?php $__env->startSection('title'); ?> Regístrate | Iglesia La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+<form action="<?php echo URL::route('account-create-post'); ?> " method="post" class="form-signin">
+	<div class="col-md-6 col-md-offset-3">
+		<legend><h3 class="form-signin-heading">Regístrate</h3></legend>
+		<?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php echo Form::label('email', 'Email:'); ?>
+
+		<div class="input-group">
+		    <div class="input-group-addon">@</div> 
+			<input type="email" class="form-control" placeholder="Tu email" autofocus name="email" <?php echo (Input::old('email')) ? 'value="' . e(Input::old('email')) . '"' : ''; ?> >
+		</div>	
+		<?php echo Form::label('username', 'Usuario:'); ?>
+
+		<div class="input-group">
+		    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>  
+			<input type="text" class="form-control" placeholder="Nombre de usuario" name="username" { (Input::old('username')) ? 'value="' . e(Input::old('username')) . '"' : '' }} >	
+		</div>
+		<?php echo Form::label('password', 'Password:'); ?>
+
+		<div class="input-group">
+		    <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>  
+			<input type="password" name="password" class="form-control" placeholder="Contraseña">
+		</div>	
+		<?php echo Form::label('password_again', 'Repetir password:'); ?> 
+		<div class="input-group">
+		    <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div> 
+			<input type="password" name="password_again" class="form-control" placeholder="Repetir contraseña">
+		</div>
+		<?php echo Form::label('Captcha', 'Captcha:'); ?> <br> 
+		<?php echo Form::image(Captcha::img(), 'Captcha image'); ?>
+
+		<div class="input-group">
+		    <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>  
+			<?php echo Form::text('captcha', null, array('class' => 'form-control', 'placeholder' => 'Ingresa captcha')); ?>
+
+		</div>
+		<br>
+		<button class="btn btn-success btn-block" type="submit">Crear cuenta</button>	
+		<?php echo Form::token(); ?>
+
+	</div>
+</form>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout4', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

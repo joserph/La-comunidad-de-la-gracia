@@ -1,0 +1,20 @@
+<?php $__env->startSection('content'); ?>
+	
+	<table class="table table-condensed">
+	    <tr>
+	        <th>Username</th>
+	        <th>Email</th>  
+	        <th>Rol</th>
+	    </tr>
+	    <?php foreach($users as $user): ?>
+		    <tr>
+		        <td><?php echo $user->username; ?></td>
+		        <td><?php echo $user->email; ?></td>
+		        <td><?php echo $user->id_rol; ?></td>
+		        <td><a href="<?php echo route('admin.edit', $user->id); ?>">Editar</a></td>
+		    </tr>
+    	<?php endforeach; ?>
+  	</table>
+	
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

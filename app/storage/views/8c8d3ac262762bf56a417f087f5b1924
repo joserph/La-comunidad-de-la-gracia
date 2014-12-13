@@ -1,0 +1,179 @@
+<?php $__env->startSection('carrusel'); ?>
+<!--Carrusel-->
+<div id="carousel-example-generic" class="carousel slide hidden-xs" data-ride="carousel">
+  <!-- Indicators -->
+    <ol class="carousel-indicators">
+    <?php $cont = -1;?>
+    <?php foreach($sliders as $slider): ?>
+        <li data-target="#carousel-example-generic" data-slide-to="<?php echo $cont += 1; ?>" class="<?php echo $slider->tipo; ?>"></li>
+    <?php endforeach; ?>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+    <?php foreach($sliders as $slider): ?>
+    <div class="item <?php echo $slider->tipo; ?>">
+        <?php foreach($archivos as $archivo): ?>
+            <?php if($slider->f_ruta == $archivo): ?>
+                <img src="<?php echo $archivo; ?>" class="img-responsive" alt="Cdlgracia_<?php echo $slider->f_nombre; ?>">
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <div class="carousel-caption">
+            <div>
+                <p>
+                    <a class="btn btn-info" href="<?php echo $slider->ruta; ?>">Leer mas</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+    </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+<!-- Fin Carrusel-->
+
+<!-- Versículo Diario-->
+<?php 
+	$dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado");
+?> 
+
+<?php foreach($cronjobs as $cronjob): ?>
+	<?php if($cronjob->dia == $dias[date("w")]): ?>
+		<?php foreach($biblia as $verso): ?>
+      <?php if($verso->id == $cronjob->id_tarea): ?>
+      <div class="well">
+        <p><em><?php echo $verso->content; ?></em></p>
+        <p>
+          <strong>
+            <small><?php echo $verso->libro; ?> <?php echo $verso->capitulo; ?>:<?php echo $verso->versiculo; ?></small>
+          </strong>
+        </p>
+      </div>                         
+      <?php endif; ?>
+    <?php endforeach; ?> 
+	<?php endif; ?>
+<?php endforeach; ?>	
+<!-- Fin Versículo Diario-->
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+<script type="text/javascript">
+//<![CDATA[
+  (function() {
+    var shr = document.createElement('script');
+    shr.setAttribute('data-cfasync', 'false');
+    shr.src = '//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js';
+    shr.type = 'text/javascript'; shr.async = 'true';
+    shr.onload = shr.onreadystatechange = function() {
+      var rs = this.readyState;
+      if (rs && rs != 'complete' && rs != 'loaded') return;
+      var site_id = 'f6fe8870b5cd965492c5db93efebb08a';
+      try { Shareaholic.init(site_id); } catch (e) {}
+    };
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(shr, s);
+  })();
+//]]>
+</script>
+
+<!-- Contenido principal-->
+
+<?php foreach($predicas as $predica): ?>
+<div class="panel panel-primary">
+	
+	<div class="panel-heading">
+	    <h2 class="panel-title text-uppercase">
+	    	<a href="<?php echo URL::route('predicas-show', $predica->url); ?>"><?php echo $predica->title; ?>.</a>
+	    </h2>
+	</div>
+	
+	<div class="panel-body">
+		<div class="list-group">
+			<div class="list-group-item">
+             	<span class="glyphicon glyphicon-calendar"></span> Publicado por
+            <?php foreach($users as $user): ?>
+                <?php if($user->id == $predica->id_user): ?>
+                    <?php echo $user->username; ?>,
+                <?php endif; ?>
+            <?php endforeach; ?>   
+            el <?php echo date("d/m/Y H:i:s a", strtotime($predica->created_at)); ?>.
+            <span class="badge">
+            <span class="glyphicon glyphicon-comment"> </span> 
+              <?php echo $comentario = DB::table('comentarios')->where('id_articulo', '=', $predica->id)->count(); ?>
+
+            </span>
+        	</div>
+        </div>
+		<div class="media">
+		    <?php foreach($archivos as $archivo): ?>
+		        <?php if(($predica->f_ruta == $archivo)): ?>
+		            <a class="pull-left" href="<?php echo URL::route('predicas-show', $predica->url); ?>">
+		                <img src="<?php echo $archivo; ?>" class="img-responsive img-rounded" width="160" height="90" alt="<?php echo $predica->f_name; ?>">
+		            </a>
+		        <?php endif; ?>
+		    <?php endforeach; ?>
+		   
+		    <?php if($predica->tipo == 'post'): ?>
+				<p class="text-justify"><?php echo substr($predica->content, 0, 150); ?>...</p>
+			<?php else: ?> 
+				<p class="text-justify"><?php echo substr($predica->content, 0, 200); ?>...</p>
+			<?php endif; ?>
+			<p>
+				<a href="<?php echo URL::route('predicas-show', $predica->url); ?>" class="btn btn-info btn-sm">Leer más...</a>
+			</p>
+			<div class='shareaholic-canvas hidden-xs' data-app='share_buttons' data-app-id='7802505'></div>
+
+		</div>
+	</div>
+</div>
+<?php endforeach; ?>
+<?php echo $predicas->links(); ?>
+
+<!-- Fin Contenido principal-->
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('aside1'); ?>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span> Anuncios</h3>
+  </div>
+  <div class="panel-body">
+    <?php 
+      $cont1 = 0;
+      $cont2 = 0;
+      $cont3 = 0;
+    ?>
+    <?php foreach($anuncios as $anuncio): ?>
+	<div id="animated-example" class="animated tada">
+		<div class="list-group">
+		  	<a href="<?php echo route('anuncios-show', $anuncio->id); ?>" class="list-group-item">
+			    <h4 class="list-group-item-heading"><?php echo $anuncio->nombre; ?></h4>
+			    <p class="list-group-item-text anuncio<?php echo $cont1 += 1; ?>">Dia <?php echo date("d/m/Y", strtotime($anuncio->fecha)); ?></p>
+			    <p class="list-group-item-text anuncio<?php echo $cont2 += 1; ?>">Hora <?php echo date("H:i:s a", strtotime($anuncio->hora)); ?></p>
+			    <p class="list-group-item-text anuncio<?php echo $cont3 += 1; ?>"><?php echo substr($anuncio->content, 0, 50); ?>...</p>
+		  	</a>  
+		</div>
+	</div>
+	<br>
+	<?php endforeach; ?>
+  </div>
+</div>
+
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <h3 class="panel-title">Petición de Oración</h3>
+  </div>
+  <div class="panel-body">
+    <?php echo $__env->make('oracion.form', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+  </div>
+</div>
+<!-- Fin Aside-->
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

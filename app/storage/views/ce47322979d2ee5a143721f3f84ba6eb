@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Authentication system</title>
+	<?php echo HTML::script('assets/js/admin.js'); ?>
+	<?php echo HTML::script('assets/js/jquery.min.js'); ?>
+</head>
+<body>
+	<?php if(Session::has('global')): ?>
+		<p><?php echo Session::get('global'); ?> </p>
+	<?php endif; ?>
+	<?php echo $__env->make('master.navegation', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->yieldContent('content'); ?>
+</body>
+</html>

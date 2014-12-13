@@ -1,0 +1,107 @@
+<?php if(Auth::check()): ?>
+<nav class="fuente espacio">
+  <div class="navbar1 navbar-default1">
+    <div class="navbar-header1">
+      <button type="button" class="navbar-toggle1" data-toggle="collapse" data-target="#menu">
+        <span class="icon-bar1"></span>
+        <span class="icon-bar1"></span>
+        <span class="icon-bar1"></span>
+      </button>
+    </div>
+      <div class="collapse1 navbar-collapse1" id="menu">
+        <ul class="navbar-nav1">
+          <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+            <?php foreach($menus as $menu): ?>
+                <?php if(($menu->estatus == "principal") || ($menu->estatus == "privado")): ?>
+                    <?php if($menu->cat == "fecha"): ?>
+                        <li class="dropdown1"><a href="<?php echo URL::route('fechas-show', $menu->url); ?>" class="dropdown-toggle1"><?php echo $menu->nombre; ?> <b class="caret1"></b></a>
+                    <?php else: ?> 
+                        <li><a href="<?php echo URL::route('predicas-show', $menu->url); ?>" ><?php echo $menu->nombre; ?></a>
+                    <?php endif; ?>
+                        <ul class="dropdown-menu1">
+                          <?php foreach($padres as $padre): ?>
+                                <?php if(($padre->padre == $menu->id) && ($menu->tipo == "expandido") && ($padre->estatus != "principal") && ($padre->estatus != "privado")): ?>
+                                    <?php if(($padre->cat == "fecha") && ($padre->tipo == "expandido")): ?>
+                                        <li class="dropdown1">
+                                          <a href="<?php echo URL::route('fechas-show', $padre->url); ?>" class="dropdown-toggle1"><?php echo $padre->nombre; ?> <b class="caret1 right1"></b></a>
+                                    <?php else: ?> 
+                                        <li>
+                                          <a href="<?php echo URL::route('predicas-show', $padre->url); ?>"><?php echo $padre->nombre; ?></a>
+                                    <?php endif; ?>
+                                      <ul class="dropdown-menu1">
+                                        <?php foreach($hijos as $hijo): ?>
+                                            <?php if(($hijo->padre == $padre->id) && ($padre->tipo == "expandido") && ($hijo->estatus != "principal") && ($hijo->estatus != "privado")): ?>
+                                                <?php if($hijo->cat == "fecha"): ?>
+                                                    <li><a href="<?php echo URL::route('fechas-show', $hijo->url); ?>"><?php echo $hijo->nombre; ?></a></li>
+                                                <?php else: ?> 
+                                                    <li><a href="<?php echo URL::route('predicas-show', $hijo->url); ?>"><?php echo $hijo->nombre; ?></a></li>
+                                                <?php endif; ?>
+                                            <?php endif; ?>  
+                                        <?php endforeach; ?>
+                                      </ul> 
+                                    </li>
+                                <?php endif; ?> 
+                          <?php endforeach; ?> 
+                        </ul>    
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+      </div>
+  </div>
+</nav>
+<?php else: ?>
+<nav class="fuente espacio">
+  <div class="navbar1 navbar-default1">
+    <div class="navbar-header1">
+      <button type="button" class="navbar-toggle1" data-toggle="collapse" data-target="#menu">
+        <span class="icon-bar1"></span>
+        <span class="icon-bar1"></span>
+        <span class="icon-bar1"></span>
+      </button>
+    </div>
+      <div class="collapse1 navbar-collapse1" id="menu">
+        <ul class="navbar-nav1">
+          <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+            <?php foreach($menus as $menu): ?>
+                <?php if($menu->estatus == "principal"): ?>
+                    <?php if($menu->cat == "fecha"): ?>
+                        <li class="dropdown1"><a href="<?php echo URL::route('fechas-show', $menu->url); ?>" class="dropdown-toggle1"><?php echo $menu->nombre; ?> <b class="caret1"></b></a>
+                    <?php else: ?> 
+                        <li><a href="<?php echo URL::route('predicas-show', $menu->url); ?>" ><?php echo $menu->nombre; ?></a>
+                    <?php endif; ?>
+                        <ul class="dropdown-menu1">
+                          <?php foreach($padres as $padre): ?>
+                                <?php if(($padre->padre == $menu->id) && ($menu->tipo == "expandido") && ($padre->estatus != "principal") && ($padre->estatus != "privado")): ?>
+                                    <?php if(($padre->cat == "fecha") && ($padre->tipo == "expandido")): ?>
+                                        <li class="dropdown1">
+                                          <a href="<?php echo URL::route('fechas-show', $padre->url); ?>" class="dropdown-toggle1"><?php echo $padre->nombre; ?> <b class="caret1 right1"></b></a>
+                                    <?php else: ?> 
+                                        <li>
+                                          <a href="<?php echo URL::route('predicas-show', $padre->url); ?>"><?php echo $padre->nombre; ?></a>
+                                    <?php endif; ?>
+                                      <ul class="dropdown-menu1">
+                                        <?php foreach($hijos as $hijo): ?>
+                                            <?php if(($hijo->padre == $padre->id) && ($padre->tipo == "expandido") && ($hijo->estatus != "principal") && ($hijo->estatus != "privado")): ?>
+                                                <?php if($hijo->cat == "fecha"): ?>
+                                                    <li><a href="<?php echo URL::route('fechas-show', $hijo->url); ?>"><?php echo $hijo->nombre; ?></a></li>
+                                                <?php else: ?> 
+                                                    <li><a href="<?php echo URL::route('predicas-show', $hijo->url); ?>"><?php echo $hijo->nombre; ?></a></li>
+                                                <?php endif; ?>
+                                            <?php endif; ?>  
+                                        <?php endforeach; ?>
+                                      </ul> 
+                                    </li>
+                                <?php endif; ?> 
+                          <?php endforeach; ?> 
+                        </ul>    
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+      </div>
+  </div>
+</nav>   
+<?php endif; ?>
+
+

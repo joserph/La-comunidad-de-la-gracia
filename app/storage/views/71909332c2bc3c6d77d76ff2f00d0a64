@@ -1,0 +1,57 @@
+<?php $__env->startSection('title'); ?> Menú | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+	<legend><h3><?php echo $menus->nombre; ?></h3></legend>
+	<ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><?php echo HTML::link('menu', 'Configuración de Menú'); ?></li>
+        <li class="active"><?php echo $menus->nombre; ?></li>
+    </ul>
+    <blockquote>
+		<dl class="dl-horizontal">
+		  <dt>Nombre:</dt>
+		  <dd><?php echo $menus->nombre; ?>.</dd>
+		  <dt>URL:</dt>
+		  <dd><?php echo $menus->url; ?>.</dd>
+		  <dt>Estatus:</dt>
+		  <dd><?php echo $menus->estatus; ?>.</dd>
+		  <dt>Tipo:</dt>
+		  <dd><?php echo $menus->tipo; ?>.</dd>
+	      <dt>Padre:</dt>
+	      <dd><?php echo $menus->padre; ?>.</dd>
+	      <dt>Cat:</dt>
+	      <dd><?php echo $menus->cat; ?>.</dd>
+		</dl>
+
+		<small><strong>Creado el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($menus->created_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $menus->id_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		<small><strong>Ultima actualización el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($menus->updated_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $menus->update_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+		</strong></small>
+		</blockquote>
+  
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout3', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

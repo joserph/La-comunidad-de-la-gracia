@@ -1,0 +1,2 @@
+<?php echo HTML::style('dropzone/downloads/css/dropzone.css'); ?>
+<?php echo HTML::script('dropzone/downloads/dropzone.js'); ?>

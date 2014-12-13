@@ -1,0 +1,107 @@
+<?php $__env->startSection('content'); ?>
+<script type="text/javascript">
+//<![CDATA[
+  (function() {
+    var shr = document.createElement('script');
+    shr.setAttribute('data-cfasync', 'false');
+    shr.src = '//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js';
+    shr.type = 'text/javascript'; shr.async = 'true';
+    shr.onload = shr.onreadystatechange = function() {
+      var rs = this.readyState;
+      if (rs && rs != 'complete' && rs != 'loaded') return;
+      var site_id = 'f6fe8870b5cd965492c5db93efebb08a';
+      try { Shareaholic.init(site_id); } catch (e) {}
+    };
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(shr, s);
+  })();
+//]]>
+</script>
+    <legend><h2><?php echo $predica->title; ?></h2></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li class="active"><?php echo $predica->title; ?></li>
+    </ul>
+    <?php if((Auth::check() && (Auth::user()->id_rol == 0)) || (Auth::check() && (Auth::user()->id_rol == 1))): ?>
+        <?php if($predica->tipo != 'post'): ?>
+    		<p><a href="<?php echo route('predicas.edit', $predica->id); ?>" class="btn btn-warning btn-sm">Editar</a></p>
+    	<?php else: ?>
+    		<p><a href="<?php echo route('post.edit', $predica->id); ?>" class="btn btn-warning btn-sm">Editar</a></p>
+    	<?php endif; ?>
+    <?php endif; ?>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+             <span class="glyphicon glyphicon-calendar"></span> Publicado por
+            <?php foreach($users as $user): ?>
+                <?php if($user->id == $predica->id_user): ?>
+                    <?php echo $user->username; ?>,
+                <?php endif; ?>
+            <?php endforeach; ?>   
+            el <?php echo date("d/m/Y H:i:s a", strtotime($predica->created_at)); ?>.
+        </div>
+        <div class="panel-body">
+        <?php foreach($archivos as $archivo): ?>
+            <?php if(($predica->f_ruta == $archivo) && ($predica->title != 'Video')): ?>
+                <p class="text-center">
+                    <img src="<?php echo $archivo; ?>" class="img-thumbnail" width="400" alt="<?php echo $predica->f_name; ?>">
+                </p>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+        <?php if($predica->tipo == "predica"): ?>
+            <h2 class="text-center"><?php echo $predica->title; ?></h2>
+            <?php foreach($predicadores as $predicador): ?>
+                <?php if($predicador->id == $predica->predicador): ?>
+                    <p class="autorpre text-center text-muted text-uppercase">~<?php echo $predicador->nombre; ?>~</p>
+                    <p class="text-center"><em> - <?php echo date("d/m/Y", strtotime($predica->fecha)); ?> -</em></p> 
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <p><?php echo $predica->content; ?></p>
+        <p><?php echo $predica->audio; ?></p>
+        <?php if($predica->tipo == "predica"): ?>
+            <p>
+                <b>Fecha:</b> 
+                <?php foreach($fechas as $fecha): ?>
+                    <?php if($fecha->id == $predica->anio): ?>
+                        <a href="<?php echo URL::route('fechas-show', $fecha->url); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-tag"></span> <?php echo $fecha->fecha; ?></a>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <?php foreach($fechas as $fecha): ?>
+                    <?php if($fecha->id == $predica->mes): ?>
+                        <a href="<?php echo URL::route('fechas-show', $fecha->url); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-tag"></span> <?php echo $fecha->fecha; ?></a>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </p>
+            <p>
+                <b>Predicador:</b> 
+                <?php foreach($predicadores as $predicador): ?>
+                    <?php if($predicador->id == $predica->predicador): ?>
+                        <a href="<?php echo URL::route('predicadores-show', $predicador->url); ?>" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-tag"></span> <?php echo $predicador->nombre; ?></a> 
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </p>
+        <?php endif; ?>
+        <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='7802505'></div>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="badge">
+              <?php echo $comentario = DB::table('comentarios')->where('id_articulo', '=', $predica->id)->count(); ?>
+
+            </span> Comentarios
+        </h3>
+    </div>
+    <div class="panel-body">
+        <?php echo $__env->make('comentarios.form', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    </div>
+</div>
+   
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

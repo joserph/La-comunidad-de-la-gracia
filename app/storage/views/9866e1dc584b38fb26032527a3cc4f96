@@ -1,0 +1,104 @@
+<?php $__env->startSection('title'); ?> Configuración de menú | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+	
+    <h1><a href="<?php echo route('menu.create'); ?>" class="btn btn-success btn-sm">Crear Menú</a></h1>
+    <legend><h3>Configuración de Menú</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li class="active">Configuración de Menú</li>
+    </ul>
+	<table class="table table-striped table-hover table-responsive">
+    <tr>
+        <th>Nombres</th>
+        <th>URL</th>
+        <th>Estatus</th>
+        <th>Peso</th>
+        <th>Tipo</th>
+        <th>Padre</th>
+        <th>Cat</th>
+        <th>Acciones</th>
+    </tr>
+    <?php foreach($menust as $menu): ?>
+    <tr>
+        <td><?php echo $menu->nombre; ?></td>
+        <td><?php echo $menu->url; ?></td>
+        <td><?php echo $menu->estatus; ?></td>
+        <td><?php echo $menu->peso; ?></td>
+        <td><?php echo $menu->tipo; ?></td>
+        <?php foreach($padres as $padre): ?>
+            <?php if($padre->id == $menu->padre): ?>
+                <td><?php echo $padre->nombre; ?></td>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php if($menu->padre == '-'): ?>
+            <td>-</td>
+        <?php endif; ?>
+        <td><?php echo $menu->cat; ?></td>
+        <td>
+            <a href="<?php echo route('menu.show', $menu->id); ?>" class="btn btn-info btn-xs">Ver </a>
+            <a href="<?php echo route('menu.edit', $menu->id); ?>" class="btn btn-warning btn-xs"> Editar</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </table>    
+    <?php echo $menust->links(); ?>
+
+  <h3>Vista previa del menú</h3>
+  
+<nav class="fuente">
+<div class="navbar1 navbar-default1">
+    <div class="navbar-header1">
+      <button type="button" class="navbar-toggle1" data-toggle="collapse" data-target="#menu">
+        <span class="icon-bar1"></span>
+        <span class="icon-bar1"></span>
+        <span class="icon-bar1"></span>
+      </button>
+    </div>
+      <div class="collapse1 navbar-collapse1" id="menu">
+        <ul class="navbar-nav1">
+            <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+            <?php foreach($menus as $menu): ?>
+                <?php if(($menu->estatus == "principal") || ($menu->estatus == "privado")): ?>
+                    <?php if($menu->cat == "fecha"): ?>
+                        <li class="dropdown1"><a href="<?php echo URL::route('fechas-show', $menu->url); ?>" class="dropdown-toggle1"><?php echo $menu->nombre; ?> <b class="caret1"></b></a>
+                    <?php else: ?> 
+                        <li><a href="<?php echo URL::route('predicas-show', $menu->url); ?>" ><?php echo $menu->nombre; ?></a>
+                    <?php endif; ?>
+                        <ul class="dropdown-menu1">
+                          <?php foreach($padres as $padre): ?>
+                                <?php if(($padre->padre == $menu->id) && ($menu->tipo == "expandido") && ($padre->estatus != "principal") && ($padre->estatus != "privado")): ?>
+                                    <?php if(($padre->cat == "fecha") && ($padre->tipo == "expandido")): ?>
+                                        <li class="dropdown1">
+                                          <a href="<?php echo URL::route('fechas-show', $padre->url); ?>" class="dropdown-toggle1"><?php echo $padre->nombre; ?> <b class="caret1 right1"></b></a>
+                                    <?php elseif(($padre->cat == "fecha") && ($padre->tipo == "normal")): ?> 
+                                        <li>
+                                            <a href="<?php echo URL::route('fechas-show', $padre->url); ?>"><?php echo $padre->nombre; ?></a>
+                                    <?php else: ?>
+                                        <li>
+                                          <a href="<?php echo URL::route('predicas-show', $padre->url); ?>"><?php echo $padre->nombre; ?></a>
+                                    <?php endif; ?>
+                                      <ul class="dropdown-menu1">
+                                        <?php foreach($hijos as $hijo): ?>
+                                            <?php if(($hijo->padre == $padre->id) && ($padre->tipo == "expandido") && ($hijo->estatus != "principal") && ($hijo->estatus != "privado")): ?>
+                                                <?php if($hijo->cat == "fecha"): ?>
+                                                    <li><a href="<?php echo URL::route('fechas-show', $hijo->url); ?>"><?php echo $hijo->nombre; ?></a></li>
+                                                <?php else: ?> 
+                                                    <li><a href="<?php echo URL::route('predicas-show', $hijo->url); ?>"><?php echo $hijo->nombre; ?></a></li>
+                                                <?php endif; ?>
+                                            <?php endif; ?>  
+                                        <?php endforeach; ?>
+                                      </ul> 
+                                    </li>
+                                <?php endif; ?> 
+                          <?php endforeach; ?> 
+                        </ul>    
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+      </div>
+  </div>
+</nav>   
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout3', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

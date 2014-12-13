@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es_ES">
+<head>
+	<meta charset="UTF-8">
+	<title>Authentication system</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<?php echo HTML::style('//fonts.googleapis.com/css?family=Lato:400,700,400italic'); ?>
+
+	<?php echo HTML::style('assets/css/reset.css'); ?>
+
+	<?php echo HTML::style('assets/css/bootstrap.css'); ?>
+
+	<?php echo HTML::style('assets/css/flatly-bootstrap.css', array('media' => 'screen')); ?>
+
+	<?php echo HTML::style('dropzone/downloads/css/dropzone.css'); ?>
+
+	<?php echo HTML::style('assets/css/font-awesome.min.css'); ?>
+
+	<?php echo HTML::style('assets/css/froala_editor.min.css'); ?>	
+    <!--Javascript-->
+	<?php echo HTML::script('assets/js/jquery.min.js'); ?>
+
+	<?php echo HTML::script('assets/js/bootstrap.min.js'); ?>
+
+	<?php echo HTML::script('assets/js/menuresponsive.js'); ?>
+
+	<?php echo HTML::script('dropzone/downloads/dropzone.js'); ?>
+
+	<?php echo HTML::script('assets/js/froala_editor.min.js'); ?>
+
+	<!--Fin Javascript-->
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<header>
+			<div class="row">
+	  			<div class="col-md-12"><?php echo HTML::image('assets/img/header04.png', 'Cdlgracia-header', array('class' => 'img-responsive visible-lg')); ?></div>
+	  			<div class="col-md-12 text-center"><a href="<?php echo URL::route('home'); ?>"><?php echo HTML::image('assets/img/Logo3D02-txt.png', 'Cdlgracia-logo3D', array('class' => 'img-responsive hidden-lg imgcenter espacio01')); ?></a></div>  			
+	  			<div class="col-md-9 "><?php echo HTML::image('assets/img/leyen01.png', 'Cdlgracia-slogan', array('class' => 'img-responsive visible-lg')); ?></div>
+	  			<div class="col-md-3 ">
+	  				<h1 class="h1prin2 text-center">
+	  					<a href="<?php echo URL::route('home'); ?>" class="titulop visible-lg text-center"><span class="span01">La</span><span class="span02">C</span><span class="span05">OMUNIDAD</span> <span class="span03">de</span> <span class="span03">la</span><span class="span04">Gracia</span></a>
+	  				</h1>
+	  			</div>
+	  			<div class="col-md-12"><?php echo HTML::image('assets/img/leyen01.png', 'Cdlgracia-slogan', array('class' => 'img-responsive visible-md espacio02')); ?></div>
+			</div>
+			<?php echo $__env->make('master.navegation1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		</header><!-- /header -->
+		<div class="row">
+			
+			<?php if(Session::has('global')): ?>
+		  		<div class="alert alert-warning">
+			      	<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<p><?php echo Session::get('global'); ?></p>
+			    </div>
+		    <?php endif; ?>
+		    <?php if(Session::has('create')): ?>
+			    <div class="alert alert-dismissable alert-info">
+				  	<button type="button" class="close" data-dismiss="alert">×</button>
+				  	<p><strong>Bien hecho! </strong> <?php echo Session::get('create'); ?></p>
+				</div>	
+		    <?php endif; ?>
+		    <?php if(Session::has('editar')): ?>
+		    	<div class="alert alert-dismissable alert-success">
+				  	<button type="button" class="close" data-dismiss="alert">×</button>
+				  	<p><strong>Bien hecho! </strong> <?php echo Session::get('editar'); ?></p>
+				</div>			  		
+		    <?php endif; ?>
+		    <?php if(Session::has('delete')): ?>
+		    	<div class="alert alert-dismissable alert-danger">
+				  	<button type="button" class="close" data-dismiss="alert">×</button>
+				  	<p><?php echo Session::get('delete'); ?></p>
+				</div>
+		    <?php endif; ?>
+			<?php echo $__env->yieldContent('content'); ?>
+			
+		</div>
+		<br>
+		<footer>
+			<div class="well2 well-sm">
+  				<div class="row">
+				  	<div class="col-md-4 text-center">
+				  		<h5 class="text-success">Menú Principal</h5>
+				  		<h4 class="text-muted"><a href="<?php echo URL::route('home'); ?>" title="" class="text-muted"><small>Inicio</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="nosotros" title="" class="text-muted"><small>Nosotros</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="ministerios" title="" class="text-muted"><small>Ministerios</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="galeria" title="" class="text-muted"><small>Galeria</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="contacto" title="" class="text-muted"><small>Contacto</small></a></h4 class="text-muted">
+				  		<h4 class="text-muted"><a href="vision-2020" title="" class="text-muted"><small>Visión 2020</small></a></h4 class="text-muted">
+				  	</div>
+				  	<div class="col-md-4">
+				  		<ul class="language_bar_chooser">
+						    <?php foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties): ?>
+						        <li>
+						            <a rel="alternate" hreflang="<?php echo $localeCode; ?>" href="<?php echo LaravelLocalization::getLocalizedURL($localeCode); ?>">
+						                <?php echo e($properties['native']); ?>
+
+						            </a>
+						        </li>
+						    <?php endforeach; ?>
+						</ul>
+				  	</div>
+				  	<div class="col-md-4">.col-md-4</div>
+				</div>
+			</div>
+		</footer>	
+	</div><!--End Container-->
+	
+</body>
+</html>

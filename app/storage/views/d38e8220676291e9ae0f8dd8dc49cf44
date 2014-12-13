@@ -1,0 +1,152 @@
+<?php
+    if ($predica->exists):
+        $form_data = array('route' => array('predicas.update', $predica->id), 'method' => 'PATCH');
+        $action    = 'Editar';
+    else:
+        $form_data = array('route' => 'predicas.store', 'method' => 'POST');
+        $action    = 'Crear';        
+    endif;
+?>
+
+<?php $__env->startSection('content'); ?>
+
+<script>
+  $(document).ready(function(){
+    
+    $("#title1").blur(function(){
+      url = $('#title1').val();
+      guion = url.replace(/ /g, "-");
+      enie = guion.replace(/ñ/g, "n");
+      a = enie.replace(/á/g, "a");
+      aa = a.replace(/Á/g, "a");
+      e = aa.replace(/é/g, "e");
+      ee = e.replace(/É/g, "e");
+      i = ee.replace(/í/g, "i");
+      ii = i.replace(/Í/g, "i");
+      o = ii.replace(/ó/g, "o");
+      oo = o.replace(/Ó/g, "o");
+      u = oo.replace(/ú/g, "u");
+      uu = u.replace(/Ú/g, "u");
+      ba = "/";
+      barra = uu.replace(ba, "-");
+      barra2 = barra.replace(ba, "-").toLowerCase();
+
+      alert("This input field has lost its focus.");
+     $('#url2').val(barra2);
+    });
+  });
+</script>
+<script>
+    function desactivar() {
+    if($("#casilla3:checked").val()==1) {
+        $("#url2").attr('readonly', 'readonly');
+    }
+    else {
+        $("#url2").removeAttr("readonly");
+      }
+
+    }
+  </script>
+   
+	<?php echo Form::model($predica, $form_data, array('role' => 'form')); ?>
+
+  <legend><h3 class="form-signin-heading"><?php echo $action; ?> Predica</h3></legend>
+  <ul class="breadcrumb">
+      <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+      <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+      <li class="active"><?php echo $action; ?> Predica</li>
+  </ul>
+  <?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    
+    <?php if($action == "Crear"): ?>
+      <input type="hidden" name="id_user" value="<?php echo Auth::user()->id; ?>">
+      <input type="hidden" name="update_user" value="<?php echo Auth:: user()->id; ?>">
+    <?php endif; ?>
+    <input type="hidden" name="tipo" value="predica">
+    
+    <?php echo Form::label('title', 'Title:'); ?> 
+    <?php echo Form::text('title', null, array('class' => 'form-control', 'id' => 'title1', 'placeholder' =>'Título de la predica')); ?>
+
+    <?php echo Form::label('url', 'Url:'); ?>
+
+    <?php echo Form::text('url', null, array('class' => 'form-control', 'id' => 'url2', 'placeholder' =>'Ruta de la predica', 'readonly')); ?>
+
+    <div class="checkbox">
+      <label for="remember">
+        <input type="checkbox" id="casilla3" value="1" onclick="desactivar()" checked="checked"> Colocar ruta manualmente 
+      </label>
+    </div>
+    <?php echo Form::label('fecha', 'Fecha de predica:'); ?> 
+    <input type="date" name="fecha" value="<?php echo $predica->fecha; ?>" placeholder="" class="form-control">
+    <?php echo Form::label('mes', 'Mes:'); ?>
+
+    <select class="form-control" id="mes" name="mes" required>
+      <option value="">Select</option>
+      <?php foreach($fechas as $fecha): ?>
+        <?php if($fecha->tipo == "mes"): ?>
+          <option value="<?php echo $fecha->id; ?>"><?php echo $fecha->fecha; ?></option> 
+        <?php endif; ?>
+      <?php endforeach; ?> 
+    </select>
+    <?php echo Form::label('anio', 'Año:'); ?>
+
+    <select class="form-control" id="anio" name="anio" required>
+      <option value="">Select</option>
+      <?php foreach($fechas as $fecha): ?>
+        <?php if($fecha->tipo == "año"): ?>
+          <option value="<?php echo $fecha->id; ?>"><?php echo $fecha->fecha; ?></option> 
+        <?php endif; ?>
+      <?php endforeach; ?> 
+    </select>
+    <?php echo Form::label('predicador', 'Predicador:'); ?>
+
+    <select class="form-control" id="predicador" name="predicador" required>
+      <option value="">Select</option>
+      <?php foreach($predicadores as $predicador): ?>
+          <option value="<?php echo $predicador->id; ?>"><?php echo $predicador->nombre; ?></option> 
+      <?php endforeach; ?> 
+    </select>
+    <?php echo Form::label('content', 'Content:'); ?>
+
+    <?php echo Form::textarea('content', null, array('class' => 'form-control', 'id' => 'edit')); ?>
+
+    <script>
+        $(function() {
+            $('#edit').editable({inlineMode: false})
+        });
+    </script>
+    <?php echo Form::label('audio', 'Audio:'); ?>
+
+    <?php echo Form::textarea('audio', null, array('class' => 'form-control')); ?>
+
+    <?php echo Form::label('estatus', 'Estatus:'); ?>
+
+    <?php echo Form::select('estatus', array(
+      '' => 'Select',
+      'publicado' => 'Publicado',
+      'menu' => 'Solo menú'
+      ), null, ['class' => 'form-control']); ?>
+
+    <br>     
+    <?php echo Form::button($action.' predica', array('type' => 'submit', 'class' => 'btn btn-success')); ?>
+
+   
+  <?php echo Form::close(); ?>
+
+  <p>
+    <?php if($action == 'Editar'): ?>  
+      <?php echo Form::model($predica, array('route' => array('predicas.destroy', $predica->id), 'method' => 'DELETE', 'role' => 'form')); ?>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+              <?php echo Form::submit('Eliminar predica', array('class' => 'btn btn-danger')); ?>
+
+          </div>
+        </div>
+      <?php echo Form::close(); ?>
+
+    <?php endif; ?>
+  </p>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

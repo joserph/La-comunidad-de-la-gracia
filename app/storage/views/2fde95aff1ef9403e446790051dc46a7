@@ -1,0 +1,27 @@
+<?php $__env->startSection('content'); ?>
+
+    
+    <hr>
+    <?php if($predica->tipo != 'post'): ?>
+		<p><a href="<?php echo route('predicas.edit', $predica->id); ?>">Editar</a></p>
+	<?php else: ?>
+		<p><a href="<?php echo route('post.edit', $predica->id); ?>">Editar</a></p>
+	<?php endif; ?>
+    <h2><?php echo $predica->title; ?></h2>
+    <p>Publicado por
+ 	<?php foreach($users as $user): ?>
+ 		<?php if($user->id == $predica->id_user): ?>
+ 			<?php echo $user->username; ?>,
+ 		<?php endif; ?>
+ 	<?php endforeach; ?>   
+    el <?php echo $predica->created_at; ?>.</p>
+    <p><?php echo $predica->content; ?></p>
+    <?php if($predica->tipo == "predica"): ?>
+	    <p><b>Fecha:</b> <?php echo $predica->anio; ?>, <?php echo $predica->mes; ?>.</p>
+	    <p><b>Predicador:</b> <?php echo $predica->predicador; ?>.</p>
+    <?php endif; ?>
+    
+   
+  
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

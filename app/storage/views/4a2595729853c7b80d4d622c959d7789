@@ -1,0 +1,58 @@
+<?php $__env->startSection('content'); ?>
+<h4>Imagenes Subidas</h4>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-7">
+				<div class="panel panel-primary">
+					<div class="panel-heading"><span class="glyphicon glyphicon-folder-open"></span>-  Files</div>
+					<div class="panel-body">
+						<div class="alert alert-info" rolo="alert">Aquí estan los archivos <?php echo Auth::user()->username; ?> <i class="fa fa-files-o"></i></div>
+
+						<?php if(Session::has('estado')): ?>
+						<div class="alert alert-success">
+							<button type="button" class="close" data-dismiss="alert">x</button>
+							Archivo Borrado
+						</div>
+						<?php endif; ?>
+
+					</div>
+
+					<!--List-->
+					<ul class="list-group">
+						<?php foreach($archivosdb as $archivo): ?>
+							<div class="row">
+								<div class="col-md-8">
+									<a class="list-group-item list-group-item-info" href="<?php echo url('assets/img', array($archivo->id)); ?>" >
+									<i class="fa fa-file"></i>
+									<span class="badge">
+										<?php echo number_format(doubleval($archivo->tamano),2,'.',' ').'KB'; ?>
+									</span>
+									<?php echo $archivo->nombre; ?>
+									</a>
+								</div>
+
+								<div class="col-md-4">
+									<a href="<?php echo URL::route('delete-file', array($archivo->id)); ?>" >
+									<button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Borrar"><span class="glyphicon glyphicon-trash"></span></button>
+									</a>
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Add jQuery library -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="assets/source/jquery.fancybox.css" type="text/css" media="screen" />
+<script type="text/javascript" src="assets/source/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".fancybox").fancybox();
+	});
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout1', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
