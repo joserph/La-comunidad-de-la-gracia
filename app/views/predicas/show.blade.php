@@ -19,6 +19,7 @@
   })();
 //]]>
 </script>
+
     @if($predica->tipo == 'post')
         <legend><h1>{{ $predica->title }}</h1></legend>
     @endif
@@ -88,6 +89,7 @@
                 @endforeach
             </p>
         @endif
+        @include('estrella.home')
         <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='7802505'></div>
     </div>
 </div>
@@ -101,9 +103,9 @@
         </h3>
     </div>
     
-        <div class="panel-body">
-            @include('comentarios.form')
-        </div>
+    <div class="panel-body">
+        @include('comentarios.form')
+    </div>
 
 </div>
 @endif

@@ -148,3 +148,50 @@ $(document).ready(function()
 
 
 });
+
+
+$(document).ready(function()
+	{
+		var form = $('.votacion');
+	    form.bind("submit",function ()
+	    {
+
+	        $.ajax({
+	            type: form.attr('method'),
+	            url: form.attr('action'),
+	            data: form.serialize(),
+	            beforeSend: function(){
+                    $('.before').append('<img src="assets/css/loader3.gif" />');
+                },
+	            complete: function(data){
+	            	
+	            },
+	            success: function (data) {	
+	            	$(".before").hide();
+					$(".errors_form").html("");
+					$(".success_message").hide().html("");
+					$('.voto').attr('disabled', 'disabled');
+					$('#frm').attr('disabled', 'disabled')
+	            	if(data.success == false){
+		            	var errores = "";
+		            	for(datos in data.errors){
+		            		errores += "<small class='error alert-danger'>" + data.errors[datos] + "</small> <br>";
+		            	}
+		            	$(".errors_form1").html(errores)
+		            }else{
+		            	$(form)[0].reset();//limpiamos el formulario
+		            	$(".success_message").show().html(data.message)		
+		            	$(".numero").show().html(data.numerov+' Votos')				    	
+		            	$(".promedio").show().html(data.promedio+'/5')
+		            }
+	            },
+	            error: function(errors){
+	            	$(".before").hide();
+					$(".errors_form").html("");
+	            	$(".errors_form").html(errors);
+	            }
+	        });
+	   		return false;
+	   		
+		});
+	});

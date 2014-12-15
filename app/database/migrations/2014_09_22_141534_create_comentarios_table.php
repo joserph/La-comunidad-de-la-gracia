@@ -19,7 +19,8 @@ class CreateComentariosTable extends Migration {
 		    $table->string('nombre', 200);	
 		    $table->string('comentario', 600);		    		    
 		    $table->integer('id_user');	    
-		    $table->integer('id_articulo');
+		    $table->integer('id_articulo')->unsigned();
+		    $table->foreign('id_articulo')->references('id')->on('predicas')->onDelete('cascade');
 		    
 		    $table->timestamps();
 		});

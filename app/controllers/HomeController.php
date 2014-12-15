@@ -108,6 +108,16 @@ class HomeController extends BaseController {
         $archivos = File::files($destinoPath); 
         $anuncios = DB::table('anuncios')->orderBy('created_at', 'desc')->get();
         $comentarios = Comentario::all();
+        $prome = 0;
+        $total = DB::table('estrellas')->where('id_post', '=', $predica->id)->sum('voto');
+        $numerov = DB::table('estrellas')->where('id_post', '=', $predica->id)->count();
+        if($total > 0){
+            $prome = $total/$numerov;
+        }
+        else{
+            $prome = 0;
+        }       
+        $promedio = number_format("$prome",2);
 	    return View::make('predicas.show', array(
 	    	'predica' => $predica, 
 	    	'users' => $users,
@@ -118,7 +128,9 @@ class HomeController extends BaseController {
 			'hijos' => $hijos,
 			'archivos' => $archivos,
 			'anuncios' => $anuncios,
-			'comentarios' => $comentarios
+			'comentarios' => $comentarios,
+			'numerov' => $numerov,
+			'promedio' => $promedio
 	    	)
 	    );
 	}

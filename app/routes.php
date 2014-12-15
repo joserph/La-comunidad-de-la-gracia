@@ -203,8 +203,9 @@ Route::get('predicadores/{url}', function($url)
     	)
     );
 }); */
+Route::get('estrella', 'EstrellaController@getEstrella');	
 
-
+Route::post('estrella', 'EstrellaController@postEstrella');	
 /* Autenticacion */
 Route::group(array('before' => 'guest'), function()
 {
