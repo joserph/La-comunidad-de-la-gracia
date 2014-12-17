@@ -169,9 +169,8 @@ $(document).ready(function()
 	            success: function (data) {	
 	            	$(".before").hide();
 					$(".errors_form").html("");
-					$(".success_message").hide().html("");
-					$('.voto').attr('disabled', 'disabled');
-					$('#frm').attr('disabled', 'disabled')
+					$(".success_message1").hide().html("");
+					
 	            	if(data.success == false){
 		            	var errores = "";
 		            	for(datos in data.errors){
@@ -179,8 +178,11 @@ $(document).ready(function()
 		            	}
 		            	$(".errors_form1").html(errores)
 		            }else{
+		            	$('.voto').attr('disabled', 'disabled');
+						$('#frm').attr('disabled', 'disabled');
+						$(".errors_form1").hide().html("");
 		            	$(form)[0].reset();//limpiamos el formulario
-		            	$(".success_message").show().html(data.message)		
+		            	$(".success_message1").show().html(data.message)		
 		            	$(".numero").show().html(data.numerov+' Votos')				    	
 		            	$(".promedio").show().html(data.promedio+'/5')
 		            }

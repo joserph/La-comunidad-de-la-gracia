@@ -17,7 +17,7 @@ class CreateVotacionTable extends Migration {
 		    $table->increments('id');
 
 		    $table->integer('voto');
-		    $table->integer('id_user');
+		    $table->integer('id_user')->nullable();
 		    $table->integer('id_post')->unsigned();
 		    $table->foreign('id_post')->references('id')->on('predicas')->onDelete('cascade');
 

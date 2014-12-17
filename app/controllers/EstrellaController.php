@@ -38,7 +38,7 @@ class EstrellaController extends \BaseController
             );
                 
             $messages = array(
-                'required'      => 'El campo :attribute es obligatorio.',
+                'required'      => 'Debes seleccionar una opción para votar.',
                 'min'           => 'El campo :attribute no puede tener menos de :min carácteres.',
                 'email'         => 'El campo :attribute debe ser un email válido.',
                 'max'           => 'El campo :attribute no puede tener más de :max carácteres.',
@@ -58,6 +58,10 @@ class EstrellaController extends \BaseController
                 )); 
                 //en otro caso ingresamos al usuario en la tabla usuarios
             }else{
+                $voto      =  Input::get("voto");
+                $id_user   =  Input::get("id_user");
+                $id_post   =  Input::get("id_post");
+
                 //creamos un nuevo usuario con los datos del formulario
                 $content = new Estrella($registerData);
                 $content->save(); 
