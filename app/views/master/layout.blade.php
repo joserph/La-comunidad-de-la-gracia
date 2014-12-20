@@ -231,8 +231,30 @@
 						@endforeach
 					  </div>
 					</div>
-
-					
+					<!--Tag mas votados-->
+					<!--
+					<div class="panel panel-default">
+  						<div class="panel-heading">
+    						<h3 class="panel-title">Publicaciones Populares</h3>
+  						</div>
+  						<div class="panel-body">
+  						<?php
+  						 	$total = 0;
+  						?>
+  							@foreach($publicacion as $publica)
+  								@foreach($votacion as $voto)
+  									@if(($publica->id == $voto->id_post) && ($total != $voto->id_post))
+  										<a href="{{ URL::route('predicas-show', $publica->url) }}" class="btn btn-default btn-xs">{{ $publica->title }}</a>							
+	  									<?php
+	  										$total = $voto->id_post 
+	  									?>				
+  									@endif
+  								@endforeach
+  							@endforeach
+  						</div>
+					</div>
+					-->
+					<!--Fin tag mas votados-->					
 		  		</aside>
 		  		<article>
 		  			@yield('aside1')

@@ -1,0 +1,47 @@
+<?php $__env->startSection('title'); ?> Comentarios | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+	
+    <legend><h3>Lista de Comentarios</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+        <li class="active">Lista de Comentarios</li>
+    </ul>
+	<table class="table table-striped table-hover table-responsive">
+    <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Comentario</th>
+        <th>Artículo</th>
+        <th>Usuario</th>
+        <th>Acciones</th>
+    </tr>
+    <?php $cont = 0;?>
+    <?php foreach($comentarios as $coment): ?>
+    <tr>
+        <td><?php echo $cont += 1; ?></td>
+        <td><?php echo $coment->nombre; ?></td>
+        <td><?php echo substr($coment->comentario, 0, 50); ?>...</td>
+        <?php foreach($articulos as $articulo): ?>
+            <?php if($articulo->id == $coment->id_articulo): ?>
+                <td><?php echo $articulo->title; ?></td>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php foreach($users as $user): ?>
+            <?php if($user->id == $coment->id_user): ?>
+                <td><?php echo $user->username; ?></td>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php if(Auth::check() && (Auth::user()->id_rol == 0)): ?>
+        <td>
+            <a href="<?php echo route('comentarios.show', $coment->id); ?>" class="btn btn-info btn-xs">Ver </a>
+            <a href="<?php echo route('comentarios.edit', $coment->id); ?>" class="btn btn-warning btn-xs"> Editar</a>
+        </td>
+        <?php endif; ?>
+    </tr>
+    <?php endforeach; ?>
+  </table>
+  <?php echo $comentarios->links(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout3', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

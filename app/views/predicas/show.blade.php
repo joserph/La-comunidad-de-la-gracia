@@ -43,9 +43,10 @@
                     {{ $user->username }},
                 @endif
             @endforeach   
-            el {{ date("d/m/Y", strtotime($predica->created_at)) }}.
+            el {{ date("d/m/Y", strtotime($predica->created_at)) }}.           
         </div>
         <div class="panel-body">
+        
         @foreach($archivos as $archivo)
             @if(($predica->f_ruta == $archivo) && ($predica->title != 'Video'))
                 <p class="text-center">
@@ -89,7 +90,9 @@
                 @endforeach
             </p>
         @endif
+        
         @include('estrella.home')
+        <hr>
         <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='7802505'></div>
     </div>
 </div>

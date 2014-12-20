@@ -1,0 +1,52 @@
+<?php $__env->startSection('title'); ?> Comentario | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+   
+   	<legend><h3>Comentarios</h3></legend>
+    <ul class="breadcrumb">
+        <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
+        <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+        <li><?php echo HTML::link('comentarios', 'Lista de Comentarios'); ?></li>
+        <li class="active">Comentario de <?php echo $comentarios->nombre; ?></li>
+    </ul>
+    	<blockquote>
+		<dl class="dl-horizontal">
+		  <dt>Nombre:</dt>
+		  <dd><?php echo $comentarios->nombre; ?>.</dd>
+		  <dt>Comentario:</dt>
+		  <dd><?php echo $comentarios->comentario; ?>.</dd>
+		</dl>
+		<small><strong>Creado el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($comentarios->created_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $comentarios->id_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+			</strong>
+		</small>
+		<small><strong>Ultima actualización el 
+			<cite title="Source Title">
+				<?php echo date("d/m/Y H:i:s a", strtotime($comentarios->updated_at)); ?>
+
+			</cite>
+			 por 
+			<cite>
+				<?php foreach($users as $user): ?>
+		            <?php if($user->id == $comentarios->update_user): ?>
+		                <?php echo $user->username; ?>.
+		            <?php endif; ?>
+		        <?php endforeach; ?>
+			</cite>
+			</strong>
+		</small>
+		</blockquote>
+     
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master.layout3', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

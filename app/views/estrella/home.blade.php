@@ -59,9 +59,9 @@
 </div>
 <div>
 	<din class="before"></din>
-	<div class="numero">{{ $numerov }} Votos</div>
-	<div class="promedio">{{ $promedio }}/5</div>
-	<div class="load_ajax"></div>
+	<div class="numero"><strong>{{ $numerov }} Votos ({{ $promedio }})</strong></div>
+	
+	<div class="load_ajax1"></div>
 	<div class="errors_form1"></div>
     <div style="display: none" class="success_message1 success1"></div>
 	

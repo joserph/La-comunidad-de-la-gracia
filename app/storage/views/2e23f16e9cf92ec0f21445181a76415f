@@ -61,9 +61,9 @@
 </div>
 <div>
 	<din class="before"></din>
-	<div class="numero"><?php echo $numerov; ?> Votos</div>
-	<div class="promedio"><?php echo $promedio; ?>/5</div>
-	<div class="load_ajax"></div>
+	<div class="numero"><strong><?php echo $numerov; ?> Votos (<?php echo $promedio; ?>)</strong></div>
+	
+	<div class="load_ajax1"></div>
 	<div class="errors_form1"></div>
     <div style="display: none" class="success_message1 success1"></div>
 	

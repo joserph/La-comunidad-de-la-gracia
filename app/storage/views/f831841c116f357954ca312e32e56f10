@@ -242,8 +242,30 @@
 						<?php endforeach; ?>
 					  </div>
 					</div>
-
-					
+					<!--Tag mas votados-->
+					<!--
+					<div class="panel panel-default">
+  						<div class="panel-heading">
+    						<h3 class="panel-title">Publicaciones Populares</h3>
+  						</div>
+  						<div class="panel-body">
+  						<?php
+  						 	$total = 0;
+  						?>
+  							<?php foreach($publicacion as $publica): ?>
+  								<?php foreach($votacion as $voto): ?>
+  									<?php if(($publica->id == $voto->id_post) && ($total != $voto->id_post)): ?>
+  										<a href="<?php echo URL::route('predicas-show', $publica->url); ?>" class="btn btn-default btn-xs"><?php echo $publica->title; ?></a>							
+	  									<?php
+	  										$total = $voto->id_post 
+	  									?>				
+  									<?php endif; ?>
+  								<?php endforeach; ?>
+  							<?php endforeach; ?>
+  						</div>
+					</div>
+					-->
+					<!--Fin tag mas votados-->					
 		  		</aside>
 		  		<article>
 		  			<?php echo $__env->yieldContent('aside1'); ?>

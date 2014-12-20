@@ -168,7 +168,7 @@ $(document).ready(function()
 	            },
 	            success: function (data) {	
 	            	$(".before").hide();
-					$(".errors_form").html("");
+					$(".errors_form1").html("");
 					$(".success_message1").hide().html("");
 					
 	            	if(data.success == false){
@@ -183,14 +183,14 @@ $(document).ready(function()
 						$(".errors_form1").hide().html("");
 		            	$(form)[0].reset();//limpiamos el formulario
 		            	$(".success_message1").show().html(data.message)		
-		            	$(".numero").show().html(data.numerov+' Votos')				    	
-		            	$(".promedio").show().html(data.promedio+'/5')
+		            	$(".numero").show().html("<strong>" +data.numerov+" Votos ("+data.promedio+")</strong>")				    	
+		            	
 		            }
 	            },
 	            error: function(errors){
 	            	$(".before").hide();
-					$(".errors_form").html("");
-	            	$(".errors_form").html(errors);
+					$(".errors_form1").html("");
+	            	$(".errors_form1").html(errors);
 	            }
 	        });
 	   		return false;

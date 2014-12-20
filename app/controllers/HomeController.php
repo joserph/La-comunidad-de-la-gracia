@@ -31,7 +31,9 @@ class HomeController extends BaseController {
         $destinoPath = 'assets/img/articulo';
         $archivos = File::files($destinoPath);
         $comentarios = Comentario::all();
-        $predicadores = Predicador::all(); 
+        $predicadores = Predicador::all();
+        $votacion = Estrella::all(); 
+        $publicacion = Predica::all();
 		//$posts = Post::all();
 		return View::make('home', array(
 			'posts' => $posts,
@@ -46,7 +48,9 @@ class HomeController extends BaseController {
 			'sliders' => $sliders,
 			'archivos' => $archivos,
 			'comentarios' => $comentarios,
-			'predicadores' => $predicadores
+			'predicadores' => $predicadores,
+			'votacion' => $votacion,
+			'publicacion' => $publicacion
 			)
 		);
 	}
@@ -60,7 +64,9 @@ class HomeController extends BaseController {
         $padres = DB::table('menu')->orderBy('peso', 'asc')->get();
         $hijos = DB::table('menu')->orderBy('peso', 'asc')->get();
         $anuncios = DB::table('anuncios')->orderBy('created_at', 'desc')->get();
-        $predicadores = Predicador::all(); 
+        $predicadores = Predicador::all();
+        $votacion = Estrella::all(); 
+        $publicacion = Predica::all(); 
 	    return View::make('fechas.show', array(
 	    	'fechas' => $fechas,
 	    	'predicas' => $predicas,
@@ -69,7 +75,9 @@ class HomeController extends BaseController {
 			'padres' => $padres,
 			'hijos' => $hijos,
 			'anuncios' => $anuncios,
-			'predicadores' => $predicadores
+			'predicadores' => $predicadores,
+			'votacion' => $votacion,
+			'publicacion' => $publicacion
 	    	)
 	    );
 	}
@@ -83,6 +91,8 @@ class HomeController extends BaseController {
         $padres = DB::table('menu')->orderBy('peso', 'asc')->get();
         $hijos = DB::table('menu')->orderBy('peso', 'asc')->get();
         $anuncios = DB::table('anuncios')->orderBy('created_at', 'desc')->get();
+        $votacion = Estrella::all();  
+        $publicacion = Predica::all(); 
 	    return View::make('predicadores.show', array(
 	    	'predicadores' => $predicadores,
 	    	'predicas' => $predicas,
@@ -90,7 +100,9 @@ class HomeController extends BaseController {
 	    	'menus' => $menus,
 			'padres' => $padres,
 			'hijos' => $hijos,
-			'anuncios' => $anuncios
+			'anuncios' => $anuncios,
+			'votacion' => $votacion,
+			'publicacion' => $publicacion
 	    	)
 	    );
 	}
@@ -118,6 +130,8 @@ class HomeController extends BaseController {
             $prome = 0;
         }       
         $promedio = number_format("$prome",2);
+        $votacion = Estrella::all();  
+        $publicacion = Predica::all(); 
 	    return View::make('predicas.show', array(
 	    	'predica' => $predica, 
 	    	'users' => $users,
@@ -130,7 +144,9 @@ class HomeController extends BaseController {
 			'anuncios' => $anuncios,
 			'comentarios' => $comentarios,
 			'numerov' => $numerov,
-			'promedio' => $promedio
+			'promedio' => $promedio,
+			'votacion' => $votacion,
+			'publicacion' => $publicacion
 	    	)
 	    );
 	}

@@ -42,9 +42,10 @@
                     <?php echo $user->username; ?>,
                 <?php endif; ?>
             <?php endforeach; ?>   
-            el <?php echo date("d/m/Y", strtotime($predica->created_at)); ?>.
+            el <?php echo date("d/m/Y", strtotime($predica->created_at)); ?>.           
         </div>
         <div class="panel-body">
+        
         <?php foreach($archivos as $archivo): ?>
             <?php if(($predica->f_ruta == $archivo) && ($predica->title != 'Video')): ?>
                 <p class="text-center">
@@ -88,7 +89,9 @@
                 <?php endforeach; ?>
             </p>
         <?php endif; ?>
+        
         <?php echo $__env->make('estrella.home', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <hr>
         <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='7802505'></div>
     </div>
 </div>
