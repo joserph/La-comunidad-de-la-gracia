@@ -96,21 +96,23 @@
         <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='7802505'></div>
     </div>
 </div>
+<!--Comentarios-->
 @if($predica->comentario == 'si')
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            <span class="badge">
-              {{ $comentario = DB::table('comentarios')->where('id_articulo', '=', $predica->id)->count() }}
-            </span> Comentarios
-        </h3>
-    </div>
-    
-    <div class="panel-body">
-        @include('comentarios.form')
-    </div>
+<!--Disqus-->
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'lacomunidaddelagracia'; // required: replace example with your forum shortname
 
-</div>
-@endif
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+@endif    
+<!--Fin Comentarios-->
 <br>
 @stop

@@ -10,12 +10,27 @@
 <?php $__env->startSection('title'); ?> <?php echo $action; ?> versículo | La Comunidad de la Gracia <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 
+<script>
+  $(document).ready(function(){
+    
+    $("#versiculo").blur(function(){
+      libro = $('#libro').val();
+      capitulo = $('#capitulo').val();
+      versiculo = $('#versiculo').val();
+      puntos = ":";
+      espacio = " ";
+      
+     $('#texto').val(libro+espacio+capitulo+puntos+versiculo);
+    });
+  });
+</script>
 	<?php echo Form::model($biblia, $form_data, array('role' => 'form')); ?>
 
   <legend><h3 class="form-signin-heading"><?php echo $action; ?> Versículo</h3></legend>
   <ul class="breadcrumb">
       <li><a href="<?php echo URL::route('home'); ?>">Inicio</a></li>
       <li><a href="<?php echo URL::route('adminc-contenido'); ?>">Administrador de Contenido</a></li>
+      <li><a href="<?php echo route('biblia.index'); ?>">Lista de Versículo</a></li>
       <li class="active"><?php echo $action; ?> Versículo</li>
   </ul>
   <?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -96,11 +111,12 @@
       '3 Juan' => '3 Juan', 
       'Judas' => 'Judas',
       'Apocalipsis' => 'Apocalipsis' 
-      ), null, ['class' => 'form-control', 'autofocus']); ?> 
+      ), null, ['class' => 'form-control', 'autofocus', 'id' => 'libro']); ?> 
     <?php echo Form::label('capitulo', 'Capítulo:'); ?> 
-    <?php echo Form::text('capitulo', null, array('class' => 'form-control', 'placeholder' => 'Número del capitulo')); ?> 
+    <?php echo Form::text('capitulo', null, array('class' => 'form-control', 'placeholder' => 'Número del capitulo', 'id' => 'capitulo')); ?> 
     <?php echo Form::label('versiculo', 'Versículo:'); ?> 
-    <?php echo Form::text('versiculo', null, array('class' => 'form-control', 'placeholder' => 'Número del versículo')); ?>  
+    <?php echo Form::text('versiculo', null, array('class' => 'form-control', 'placeholder' => 'Número del versículo', 'id' => 'versiculo')); ?> 
+    <input type="hidden" name="texto" value="" id="texto"> 
     <?php echo Form::label('content', 'Contenido:'); ?> 
     <?php echo Form::textarea('content', null, array('class' => 'form-control')); ?> 
     <br>

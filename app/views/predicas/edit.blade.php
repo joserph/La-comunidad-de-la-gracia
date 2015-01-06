@@ -76,6 +76,7 @@
   <ul class="breadcrumb">
       <li><a href="{{ URL::route('home') }}">Inicio</a></li>
       <li><a href="{{ URL::route('adminc-contenido') }}">Administrador de Contenido</a></li>
+      <li><a href="{{ URL::route('predicas.index') }}">Lista de Predicas</a></li>
       <li class="active">{{ $action }} Predica</li>
   </ul>
 	@include ('admin/errors', array('errors' => $errors))

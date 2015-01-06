@@ -19,6 +19,7 @@ class CreateBibliaTable extends Migration {
 		    $table->string('libro', 50);
 		    $table->integer('capitulo');
 		    $table->integer('versiculo');
+		    $table->integer('texto');
 		    $table->string('content', 500);
 		    $table->integer('id_user');
 		    $table->integer('update_user');

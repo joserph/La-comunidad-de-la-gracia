@@ -111,7 +111,7 @@
           el {{ date("d/m/Y", strtotime($predica->created_at)) }}.
         <span class="badge">
           <span class="glyphicon glyphicon-comment"> </span> 
-            {{ $comentario = DB::table('comentarios')->where('id_articulo', '=', $predica->id)->count() }}
+          <a href="{{ URL::route('predicas-show', $predica->url) }}#disqus_thread"></a>
         </span>
       </div>
       </div>
@@ -206,7 +206,7 @@
           el {{ date("d/m/Y", strtotime($predica->created_at)) }}.
         <span class="badge">
           <span class="glyphicon glyphicon-comment"> </span> 
-            {{ $comentario = DB::table('comentarios')->where('id_articulo', '=', $predica->id)->count() }}
+            <a href="{{ URL::route('predicas-show', $predica->url) }}#disqus_thread"></a>
         </span>
       </div>
       </div>

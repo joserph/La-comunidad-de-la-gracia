@@ -9,7 +9,7 @@ class PredicasController extends \BaseController
         $predicas = DB::table('predicas')
             ->where('tipo', '=', 'predica')
             ->orderBy('created_at', 'desc')
-            ->paginate(25);
+            ->paginate(20);
 		return View::make('predicas.index')->with('predicas', $predicas, 'user', $user);
 	}
 

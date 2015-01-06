@@ -12,11 +12,26 @@
 @section ('title') {{ $action }} versículo | La Comunidad de la Gracia @stop
 @section('content')
 
+<script>
+  $(document).ready(function(){
+    
+    $("#versiculo").blur(function(){
+      libro = $('#libro').val();
+      capitulo = $('#capitulo').val();
+      versiculo = $('#versiculo').val();
+      puntos = ":";
+      espacio = " ";
+      
+     $('#texto').val(libro+espacio+capitulo+puntos+versiculo);
+    });
+  });
+</script>
 	{{ Form::model($biblia, $form_data, array('role' => 'form')) }}
   <legend><h3 class="form-signin-heading">{{ $action }} Versículo</h3></legend>
   <ul class="breadcrumb">
       <li><a href="{{ URL::route('home') }}">Inicio</a></li>
       <li><a href="{{ URL::route('adminc-contenido') }}">Administrador de Contenido</a></li>
+      <li><a href="{{ route('biblia.index') }}">Lista de Versículo</a></li>
       <li class="active">{{ $action }} Versículo</li>
   </ul>
   @include ('admin/errors', array('errors' => $errors))
@@ -97,12 +112,13 @@
       '3 Juan' => '3 Juan', 
       'Judas' => 'Judas',
       'Apocalipsis' => 'Apocalipsis' 
-      ), null, ['class' => 'form-control', 'autofocus']) 
+      ), null, ['class' => 'form-control', 'autofocus', 'id' => 'libro']) 
     }} 
     {{ Form::label('capitulo', 'Capítulo:') }} 
-    {{ Form::text('capitulo', null, array('class' => 'form-control', 'placeholder' => 'Número del capitulo')) }} 
+    {{ Form::text('capitulo', null, array('class' => 'form-control', 'placeholder' => 'Número del capitulo', 'id' => 'capitulo')) }} 
     {{ Form::label('versiculo', 'Versículo:') }} 
-    {{ Form::text('versiculo', null, array('class' => 'form-control', 'placeholder' => 'Número del versículo')) }}  
+    {{ Form::text('versiculo', null, array('class' => 'form-control', 'placeholder' => 'Número del versículo', 'id' => 'versiculo')) }} 
+    <input type="hidden" name="texto" value="" id="texto"> 
     {{ Form::label('content', 'Contenido:') }} 
     {{ Form::textarea('content', null, array('class' => 'form-control')) }} 
     <br>

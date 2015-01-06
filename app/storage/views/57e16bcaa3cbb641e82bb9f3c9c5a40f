@@ -109,8 +109,7 @@
           el <?php echo date("d/m/Y", strtotime($predica->created_at)); ?>.
         <span class="badge">
           <span class="glyphicon glyphicon-comment"> </span> 
-            <?php echo $comentario = DB::table('comentarios')->where('id_articulo', '=', $predica->id)->count(); ?>
-
+          <a href="<?php echo URL::route('predicas-show', $predica->url); ?>#disqus_thread"></a>
         </span>
       </div>
       </div>
@@ -205,8 +204,7 @@
           el <?php echo date("d/m/Y", strtotime($predica->created_at)); ?>.
         <span class="badge">
           <span class="glyphicon glyphicon-comment"> </span> 
-            <?php echo $comentario = DB::table('comentarios')->where('id_articulo', '=', $predica->id)->count(); ?>
-
+            <a href="<?php echo URL::route('predicas-show', $predica->url); ?>#disqus_thread"></a>
         </span>
       </div>
       </div>
