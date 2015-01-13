@@ -25,6 +25,13 @@
     {{ Form::text('email', null, array('class' => 'form-control')) }}
     {{ Form::label('ubicacion', 'Ubicacion:') }} 
     {{ Form::text('ubicacion', null, array('class' => 'form-control', 'placeholder' => 'Ej. Madrid - España')) }}
+    {{ Form::label('sexo', 'Sexo:') }}
+    {{ Form::select('sexo', array(
+      '' => 'Select',
+      'Mujer' => 'Mujer',
+      'Hombre' => 'Hombre'
+      ), null, ['class' => 'form-control'])
+    }}
     
     <br>
     {{ Form::button($action.' usuario', array('type' => 'submit', 'class' => 'btn btn-warning')) }}

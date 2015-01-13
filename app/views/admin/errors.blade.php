@@ -4,7 +4,7 @@
       <h4>Por favor corrige los siguentes errores:</h4>
       <ul>
       @foreach ($errors->all() as $error)
-        <li><strong>{{ $error }}</strong></li>
+        <li>{{ $error }}</li>
       @endforeach
       </ul>
     </div>

@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration {
 		    $table->string('f_nombre', 50);
 		    $table->string('f_ruta', 300);
 		    $table->string('f_exten', 5);
+		    $table->string('sexo');
 
 		    $table->timestamps();
 		});

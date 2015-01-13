@@ -9,8 +9,12 @@
         <li class="active">Perfil de {{ $user->username }}</li>
     </ul>
 
-    <div class="text-center row">
-    	<h1><span class="glyphicon glyphicon-user"></span></h1>
+    <div class="row text-center">
+    	@if($user->sexo == 'Hombre')       
+           <p>{{ HTML::image('assets/img/h.png', 'profile', array('class' => 'img-responsive img-circle profile', 'width' => '150')) }}</p>
+        @elseif($user->sexo == 'Mujer')
+            <p>{{ HTML::image('assets/img/m.png', 'profile', array('class' => 'img-responsive img-circle profile', 'width' => '150')) }}</p>
+        @endif 
     	<h3>{{ $user->nombre }}</h3>
     	@if($user->id_rol == 0)
 	  		<p>Administrador</p>

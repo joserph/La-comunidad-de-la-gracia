@@ -40,7 +40,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         'ubicacion',
         'f_nombre',
         'f_ruta',
-        'f_exten'
+        'f_exten',
+        'sexo'
     );
 
 	use UserTrait, RemindableTrait;
@@ -76,7 +77,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface
     {
         $rules = array(
             'email'     =>  'required|max:50|email|unique:users',
-            'username'  =>  'required|max:10|min:4'
+            'username'  =>  'required|max:10|min:4',
+            'sexo'      =>  'required'
         );
 
         if ($this->exists)

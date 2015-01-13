@@ -7,8 +7,9 @@
 <body style="background: #b6dbec; margin: 0px; padding: 0px; font-family: Verdana, Helvetica; color: #162840;">
 	<div style="text-align: center;">
 		<img src="{{ $message->embed('assets/img/header01.png') }}" alt="h" style="width: 100%;">
+		<img src="{{ $message->embed('assets/img/titulo.png') }}" alt="t" style="width: 50%;">
 	</div>
-	<h2 style="text-align: center; font-family: Helvetica;">Activar usuario</h2>
+	<h2 style="text-align: center; font-family: Helvetica;">Activar cuenta</h2>
 	<p>Hola {{ $username }}, Dios te bendiga.</p>
 
 	<p>Para activar su cuenta por favor haga clic en el siguiente enlace:</p>

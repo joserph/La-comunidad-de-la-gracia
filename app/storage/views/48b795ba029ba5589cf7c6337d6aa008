@@ -1,9 +1,10 @@
 <?php $__env->startSection('title'); ?> Iniciar sesión | Iglesia La Comunidad de la Gracia <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
+<?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <form action="<?php echo URL::route('account-sign-in-post'); ?> " method="post" class="form-signin" role="form">
 	<div class="col-md-6 col-md-offset-3">
 		<legend><h3 class="form-signin-heading">Iniciar sesión</h3></legend>
-		<?php echo $__env->make('admin/errors', array('errors' => $errors), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		
 		<?php echo Form::label('email', 'Email:'); ?> 
 		<div class="input-group">
 		    <div class="input-group-addon">@</div>

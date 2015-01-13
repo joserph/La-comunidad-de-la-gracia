@@ -1,11 +1,11 @@
 @extends('master.layout4')
 @section ('title') Cambiar contraseña | Iglesia La Comunidad de la Gracia @stop
 @section('content')
-	
+@include ('admin/errors', array('errors' => $errors))
 <form action="{{ URL::route('account-change-password-post') }} " method="post">
 	<div class="col-md-6 col-md-offset-3">
 		<legend><h3 class="form-signin-heading">Cambiar contraseña</h3></legend>
-		@include ('admin/errors', array('errors' => $errors))
+		
 		{{ Form::label('old_password', 'Password actual:') }}
 		<input type="password" name="old_password" class="form-control" placeholder="Contraseña actual">
 		{{ Form::label('new_password', 'Password nuevo:') }}

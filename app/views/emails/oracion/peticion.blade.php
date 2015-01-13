@@ -7,6 +7,7 @@
 <body style="background: #b6dbec; margin: 0px; padding: 0px; font-family: Verdana, Helvetica; color: #162840;">
 	<div style="text-align: center;">
 		<img src="{{ $message->embed('assets/img/header01.png') }}" alt="h" style="width: 100%;">
+		<img src="{{ $message->embed('assets/img/titulo.png') }}" alt="t" style="width: 50%;">
 	</div>
 	<h2 style="text-align: center; font-family: Helvetica;">Petición de Oración</h2>
 	<p>Hola Lider de Oración Dios te Bendiga,</p>

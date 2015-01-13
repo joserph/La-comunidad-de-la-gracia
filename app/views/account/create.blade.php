@@ -1,11 +1,11 @@
 @extends('master.layout4')
 @section ('title') Regístrate | Iglesia La Comunidad de la Gracia @stop
 @section('content')
-
+@include ('admin/errors', array('errors' => $errors))
 <form action="{{ URL::route('account-create-post') }} " method="post" class="form-signin">
 	<div class="col-md-6 col-md-offset-3">
 		<legend><h3 class="form-signin-heading">Regístrate</h3></legend>
-		@include ('admin/errors', array('errors' => $errors))
+		
 		{{ Form::label('email', 'Email:') }}
 		<div class="input-group">
 		    <div class="input-group-addon">@</div> 
