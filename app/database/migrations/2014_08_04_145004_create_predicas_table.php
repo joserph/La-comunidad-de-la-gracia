@@ -22,7 +22,7 @@ class CreatePredicasTable extends Migration {
 		    $table->string('mes', 15);
 		    $table->string('anio', 15);
 		    $table->string('fecha', 80);
-		    $table->string('content', 5000);
+		    $table->string('content', 50000);
 		    $table->string('estatus');
 		    $table->integer('id_user');
 		    $table->string('tipo', 20);

@@ -21,5 +21,6 @@
 			
 			{{ Form::close() }}
 		</div>
+		<a href="{{ URL::route('galeria') }}" class="btn btn-info">Ver Galeria</a>
 	</div>
 @stop

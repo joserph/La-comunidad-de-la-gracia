@@ -146,6 +146,42 @@
 	  						@endforeach
 	  					</div>
 	  				</div>
+
+	  				<!--Tag de predicadores-->
+	  				<?php
+	  					$predicas = DB::table('predicas')->get();
+	  					$predicadores = DB::table('predicadores')->orderBy('nombre', 'asc')->get();
+	  					$total = 0;
+	  				?>
+	  				<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> Predicadores</h3>
+						</div>
+						
+						<div class="panel-body">
+							@foreach($predicadores as $predicador)
+								<a href="{{ URL::route('predicadores-show', $predicador->url) }}">
+								<button class="btn btn-primary btn-xs" type="button">
+								  {{ $predicador->nombre }} 
+								  	<span class="badge">
+								  		<?php
+									  		$total = 0;
+									  	?>
+									  	@foreach($predicas as $predica)
+								  			@if($predica->predicador == $predicador->id)
+								  				<?php
+								  					$total += 1;
+								  				?>
+								  			@endif
+								  		@endforeach
+								    	{{ $total }}
+								  	</span>
+								</button>
+								</a>
+							@endforeach		
+	  					</div>
+	  				</div>
+	  				<!--Fin Tag de predicadores-->
 		  			
 		  			<div class="panel panel-success">
 					  <div class="panel-heading">

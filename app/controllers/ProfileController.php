@@ -88,21 +88,21 @@ class ProfileController extends \BaseController
 
 	public function destroy($id)
 	{
-		$predica = Predica::find($id);
+		$user = User::find($id);
         
-        if (is_null ($predica))
+        if (is_null ($user))
         {
             App::abort(404);
         }
         
-        $predica->delete();
+        $user->delete();
 
         if (Request::ajax())
         {
             return Response::json(array (
                 'success' => true,
-                'msg'     => 'Agente ' . $predica->name . ' eliminado',
-                'id'      => $predica->id
+                'msg'     => 'Agente ' . $user->name . ' eliminado',
+                'id'      => $user->id
             ));
         }
         else
